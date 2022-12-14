@@ -21,15 +21,15 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="<?= site_url('admin/arsip-primer') ?>" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Arsip Primer</p>
                                     </a>
-                                    <a href="#" class="nav-link">
+                                    <a href="<?= site_url('admin/arsip-skunder') ?>" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Arsip Sekunder</p>
                                     </a>
-                                    <a href="#" class="nav-link">
+                                    <a href="<?= site_url('admin/arsip-tersier') ?>" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Arsip Tersier</p>
                                     </a>

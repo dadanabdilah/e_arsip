@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.1.1deb5ubuntu1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Dec 12, 2022 at 03:06 AM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 8.1.12
+-- Host: localhost:3306
+-- Generation Time: Dec 14, 2022 at 06:00 PM
+-- Server version: 10.6.11-MariaDB-0ubuntu0.22.04.1
+-- PHP Version: 8.1.2-1ubuntu2.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,26 +24,40 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `arsip`
+-- Table structure for table `arsip_primer`
 --
 
-CREATE TABLE `arsip` (
-  `id_arsip` int(11) NOT NULL,
-  `kode_arsip` varchar(50) NOT NULL,
-  `nama_arsip` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+CREATE TABLE `arsip_primer` (
+  `id_primer` int(11) NOT NULL,
+  `kode_primer` varchar(50) NOT NULL,
+  `primer` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `arsip`
+-- Table structure for table `arsip_sekunder`
 --
 
-INSERT INTO `arsip` (`id_arsip`, `kode_arsip`, `nama_arsip`) VALUES
-(1, 'PM', 'Pemasaran Daring'),
-(3, 'AK', 'Akuntansi'),
-(4, 'AK', 'Akuntansi'),
-(5, 'AK', 'Akuntansi'),
-(6, 'AK', 'Akuntansi'),
-(7, 'IT', 'Teknologi');
+CREATE TABLE `arsip_sekunder` (
+  `id_sekunder` int(11) NOT NULL,
+  `kode_sekunder` varchar(50) NOT NULL,
+  `sekunder` varchar(100) NOT NULL,
+  `kode_primer` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `arsip_tersier`
+--
+
+CREATE TABLE `arsip_tersier` (
+  `id_tersier` int(11) NOT NULL,
+  `kode_tersier` varchar(50) NOT NULL,
+  `tersier` varchar(100) NOT NULL,
+  `kode_sekunder` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -74,7 +88,7 @@ CREATE TABLE `surat_keluar` (
   `perihal` varchar(100) NOT NULL,
   `id_unit` int(11) NOT NULL,
   `hubungan` varchar(50) NOT NULL,
-  `id_arsip` int(11) NOT NULL,
+  `kode_tersier` varchar(50) NOT NULL,
   `berkas` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
@@ -92,26 +106,9 @@ CREATE TABLE `surat_masuk` (
   `perihal` varchar(100) NOT NULL,
   `id_unit` int(11) NOT NULL,
   `lampiran` varchar(100) NOT NULL,
-  `id_arsip` int(11) NOT NULL,
+  `kode_tersier` varchar(50) NOT NULL,
   `berkas` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Dumping data for table `surat_masuk`
---
-
-INSERT INTO `surat_masuk` (`id_sm`, `tgl_diterima`, `tgl_sm`, `no_sm`, `perihal`, `id_unit`, `lampiran`, `id_arsip`, `berkas`) VALUES
-(1, '2022-12-08', '2022-12-01', 'SM/2022', 'izin lapangan', 2, '2 lembar', 1, 'SE Surveilan Pemegang Sertifikat Thn 2022.pdf'),
-(2, '2022-12-08', '2022-12-02', 'PM/2022/X', 'undangan rapat', 2, '2 lembar', 1, 'n'),
-(3, '2022-12-08', '2022-12-03', 'SM/2022/X', 'undangan', 2, '2 lembar', 1, 'SE Surveilan Pemegang Sertifikat Thn 2022.pdf'),
-(5, '2022-12-08', '2022-12-08', 'PM/2022/Xi', 'rapat', 2, '2 lembar', 1, ''),
-(6, '2022-12-09', '2022-12-09', 'PM/2022/Xi', 'undangan rapat', 2, '2 lembar', 1, 'aqib.docx'),
-(7, '2022-12-09', '2022-12-09', 'PM/2022/Xi', 'izin lapangan', 2, '2 lembar', 1, 'aqib1.docx'),
-(8, '2022-12-09', '2022-12-09', 'PM/2022/Xi', 'undangan rapat', 2, '2 lembar', 1, ''),
-(9, '2022-12-08', '2022-12-03', 'SM/2022/X', 'undangan', 2, '2 lembar', 1, ''),
-(10, '2022-12-08', '2022-12-03', 'SM/2022/X', 'undangan', 2, '2 lembar', 1, ''),
-(11, '2022-12-09', '2022-12-09', 'SM/2022', 'undangan', 2, '2 lembar', 1, 'SE Surveilan Pemegang Sertifikat Thn 2022.pdf'),
-(12, '2022-12-09', '2022-12-09', 'SM/2022', 'undangan rapat', 2, '2 lembar', 1, 'SE Surveilan Pemegang Sertifikat Thn 2022.pdf');
 
 -- --------------------------------------------------------
 
@@ -138,10 +135,24 @@ INSERT INTO `unit_kerja` (`id_unit`, `kode_unit`, `nama_unit`, `kontak`) VALUES
 --
 
 --
--- Indexes for table `arsip`
+-- Indexes for table `arsip_primer`
 --
-ALTER TABLE `arsip`
-  ADD PRIMARY KEY (`id_arsip`);
+ALTER TABLE `arsip_primer`
+  ADD PRIMARY KEY (`id_primer`);
+
+--
+-- Indexes for table `arsip_sekunder`
+--
+ALTER TABLE `arsip_sekunder`
+  ADD PRIMARY KEY (`id_sekunder`),
+  ADD KEY `kode_primer` (`kode_primer`);
+
+--
+-- Indexes for table `arsip_tersier`
+--
+ALTER TABLE `arsip_tersier`
+  ADD PRIMARY KEY (`id_tersier`),
+  ADD KEY `kode_sekunder` (`kode_sekunder`);
 
 --
 -- Indexes for table `disposisi`
@@ -155,7 +166,7 @@ ALTER TABLE `disposisi`
 --
 ALTER TABLE `surat_keluar`
   ADD PRIMARY KEY (`id_sk`),
-  ADD KEY `id_arsip` (`id_arsip`),
+  ADD KEY `id_arsip` (`kode_tersier`),
   ADD KEY `id_unit` (`id_unit`);
 
 --
@@ -164,7 +175,8 @@ ALTER TABLE `surat_keluar`
 ALTER TABLE `surat_masuk`
   ADD PRIMARY KEY (`id_sm`),
   ADD KEY `id_unit` (`id_unit`),
-  ADD KEY `id_arsip` (`id_arsip`);
+  ADD KEY `id_arsip` (`kode_tersier`),
+  ADD KEY `kode_tersier` (`kode_tersier`);
 
 --
 -- Indexes for table `unit_kerja`
@@ -177,10 +189,22 @@ ALTER TABLE `unit_kerja`
 --
 
 --
--- AUTO_INCREMENT for table `arsip`
+-- AUTO_INCREMENT for table `arsip_primer`
 --
-ALTER TABLE `arsip`
-  MODIFY `id_arsip` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+ALTER TABLE `arsip_primer`
+  MODIFY `id_primer` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `arsip_sekunder`
+--
+ALTER TABLE `arsip_sekunder`
+  MODIFY `id_sekunder` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `arsip_tersier`
+--
+ALTER TABLE `arsip_tersier`
+  MODIFY `id_tersier` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `surat_keluar`
