@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 14, 2022 at 06:00 PM
+-- Generation Time: Dec 16, 2022 at 04:18 PM
 -- Server version: 10.6.11-MariaDB-0ubuntu0.22.04.1
 -- PHP Version: 8.1.2-1ubuntu2.8
 
@@ -33,6 +33,13 @@ CREATE TABLE `arsip_primer` (
   `primer` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `arsip_primer`
+--
+
+INSERT INTO `arsip_primer` (`id_primer`, `kode_primer`, `primer`) VALUES
+(14, 'KP', 'Kepegawaian');
+
 -- --------------------------------------------------------
 
 --
@@ -46,6 +53,13 @@ CREATE TABLE `arsip_sekunder` (
   `kode_primer` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `arsip_sekunder`
+--
+
+INSERT INTO `arsip_sekunder` (`id_sekunder`, `kode_sekunder`, `sekunder`, `kode_primer`) VALUES
+(3, 'KP.00', 'Kepegawaian', 'KP');
+
 -- --------------------------------------------------------
 
 --
@@ -58,6 +72,13 @@ CREATE TABLE `arsip_tersier` (
   `tersier` varchar(100) NOT NULL,
   `kode_sekunder` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `arsip_tersier`
+--
+
+INSERT INTO `arsip_tersier` (`id_tersier`, `kode_tersier`, `tersier`, `kode_sekunder`) VALUES
+(3, 'KP.00.01', 'Lowongan Kerja', 'KP.00');
 
 -- --------------------------------------------------------
 
@@ -100,14 +121,15 @@ CREATE TABLE `surat_keluar` (
 
 CREATE TABLE `surat_masuk` (
   `id_sm` int(11) NOT NULL,
-  `tgl_diterima` date NOT NULL,
-  `tgl_sm` date NOT NULL,
   `no_sm` varchar(50) NOT NULL,
-  `perihal` varchar(100) NOT NULL,
   `id_unit` int(11) NOT NULL,
+  `perihal` varchar(100) NOT NULL,
   `lampiran` varchar(100) NOT NULL,
+  `berkas` varchar(200) NOT NULL,
+  `berkas_url` varchar(100) NOT NULL,
   `kode_tersier` varchar(50) NOT NULL,
-  `berkas` varchar(200) NOT NULL
+  `tgl_sm` date NOT NULL,
+  `tgl_diterima` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
@@ -128,7 +150,8 @@ CREATE TABLE `unit_kerja` (
 --
 
 INSERT INTO `unit_kerja` (`id_unit`, `kode_unit`, `nama_unit`, `kontak`) VALUES
-(2, '01', 'SMKN 1 Kuningan', '085112345678');
+(2, 'SMKN1Kng', 'SMK Negeri 1 Kuningan', '085112345678'),
+(3, 'SMKN3Kng', 'SMK Negeri 3 Kuningan', '01281938913');
 
 --
 -- Indexes for dumped tables
@@ -192,19 +215,19 @@ ALTER TABLE `unit_kerja`
 -- AUTO_INCREMENT for table `arsip_primer`
 --
 ALTER TABLE `arsip_primer`
-  MODIFY `id_primer` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_primer` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `arsip_sekunder`
 --
 ALTER TABLE `arsip_sekunder`
-  MODIFY `id_sekunder` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_sekunder` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `arsip_tersier`
 --
 ALTER TABLE `arsip_tersier`
-  MODIFY `id_tersier` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_tersier` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `surat_keluar`
@@ -216,13 +239,13 @@ ALTER TABLE `surat_keluar`
 -- AUTO_INCREMENT for table `surat_masuk`
 --
 ALTER TABLE `surat_masuk`
-  MODIFY `id_sm` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_sm` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `unit_kerja`
 --
 ALTER TABLE `unit_kerja`
-  MODIFY `id_unit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_unit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
