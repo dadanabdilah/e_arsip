@@ -25,7 +25,7 @@
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Arsip Primer</p>
                                     </a>
-                                    <a href="<?= site_url('admin/arsip-skunder') ?>" class="nav-link">
+                                    <a href="<?= site_url('admin/arsip-sekunder') ?>" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Arsip Sekunder</p>
                                     </a>
@@ -35,7 +35,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="<?php echo base_url('Unitkerja') ?>" class="nav-link">
+                                    <a href="<?php echo base_url('admin/unit-kerja') ?>" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Unit Kerja</p>
                                     </a>

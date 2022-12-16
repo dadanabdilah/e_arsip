@@ -49,11 +49,13 @@ $routes->get('/Suratmasuk/tambahData', 'Suratmasuk::tambahData');
 
 $routes->group("admin", ["namespace" => "App\Controllers\Admin"], function ($routes){
     $routes->resource('dashboard');
-    $routes->resource('arsip-primer', ['controller' => 'ArsipPrimer']);
-    $routes->resource('arsip-skunder', ['controller' => 'ArsipSkunder']);
+    $routes->resource('arsip-primer', ['controller' => 'ArsipPrimer'], ['except' => 'show, new, edit, delete']);
+    $routes->resource('arsip-sekunder', ['controller' => 'ArsipSekunder']);
     $routes->resource('arsip-tersier', ['controller' => 'ArsipTersier']);
+    $routes->resource('unit-kerja', ['controller' => 'UnitKerja']);
     $routes->resource('surat-masuk', ['controller' => 'SuratMasuk']);
     $routes->resource('surat-keluar', ['controller' => 'SuratKeluar']);
+    $routes->resource('unit-kerja', ['controller' => 'UnitKerja']);
 });
 
 /*

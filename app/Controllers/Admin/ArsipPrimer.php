@@ -4,6 +4,8 @@ namespace App\Controllers\Admin;
 
 use CodeIgniter\RESTful\ResourceController;
 
+use App\Models\ArsipPrimerModel;
+
 class ArsipPrimer extends ResourceController
 {
     /**
@@ -11,9 +13,22 @@ class ArsipPrimer extends ResourceController
      *
      * @return mixed
      */
+
+    protected $modelName = 'App\Models\ArsipPrimerModel';
+
+    function __construct()
+    {
+        $this->APrimer = new ArsipPrimerModel;
+    }
+
     public function index()
     {
-        //
+        $data = [
+            'Primer' => $this->model->findAll(),
+            'title' => 'Arsip Primer',
+            'sub_title' => 'Data Arsip Primer'
+        ];
+        return view('admin/arsip-primer/index', $data);
     }
 
     /**
@@ -33,7 +48,11 @@ class ArsipPrimer extends ResourceController
      */
     public function new()
     {
-        //
+        $data = [
+            'title' => 'Arsip Primer',
+            'sub_title' => 'Tambah Data Arsip Primer'
+        ];
+        return view('admin/arsip-primer/tambah', $data);
     }
 
     /**
@@ -43,7 +62,34 @@ class ArsipPrimer extends ResourceController
      */
     public function create()
     {
-        //
+        if(!$this->validate([
+            'kode' => 'required',
+            'nama' => 'required',
+        ])){
+            session()->setFlashdata('error', $this->validator->listErrors());
+
+            return redirect()->back()->withInput();
+        }
+
+        // if( ! is_dir($filepath)){
+        //     if ( ! mkdir($filepath, 0777, TRUE) ){
+        //         session()->setFlashdata('message', 'Tambah Data Arsip Primer Tidak Berhasil');
+        //         return redirect()->to('admin/arsip-primer');
+        //     }
+        // }
+
+        $request = [
+                        'kode_primer' => $this->request->getPost('kode'),
+                        'primer' => $this->request->getPost('nama')
+                    ];
+    
+        if($this->model->save($request)){
+            session()->setFlashdata('message', 'Tambah Data Arsip Primer Berhasil');
+            return redirect()->to('admin/arsip-primer');
+        }else{
+            session()->setFlashdata('error', 'Tambah Data Arsip Primer Tidak Berhasil');
+            return redirect()->to('admin/arsip-primer');
+        }
     }
 
     /**
@@ -53,7 +99,12 @@ class ArsipPrimer extends ResourceController
      */
     public function edit($id = null)
     {
-        //
+        $data = [
+            'Primer' => $this->model->where('id_primer', $id)->first(),
+            'title' => 'Arsip Primer',
+            'sub_title' => 'Data Arsip Primer'
+        ];
+        return view('admin/arsip-primer/edit', $data);
     }
 
     /**
@@ -63,7 +114,40 @@ class ArsipPrimer extends ResourceController
      */
     public function update($id = null)
     {
-        //
+        if(!$this->validate([
+            'kode' => 'required',
+            'nama' => 'required',
+        ])){
+            session()->setFlashdata('error', $this->validator->listErrors());
+
+            return redirect()->back()->withInput();
+        }
+
+        // $filepath = 'assets/surat/' . $this->request->getPost('old_kode');
+        // $newpath = 'assets/surat/' . $this->request->getPost('kode');
+
+        // if( ! is_dir($filepath)){
+        //     if ( ! mkdir($filepath, 0777, TRUE) ){
+        //         session()->setFlashdata('message', 'Edit Data Arsip Primer Tidak Berhasil');
+        //         return redirect()->to('admin/arsip-primer');
+        //     }
+        // } else {
+        //     rename($filepath, $newpath);
+        // }
+
+        $request = [
+                        'id_primer' => $id,
+                        'kode_primer' => $this->request->getPost('kode'),
+                        'primer' => $this->request->getPost('nama')
+                    ];
+    
+        if($this->APrimer->save($request)){
+            session()->setFlashdata('message', 'Edit Data Arsip Primer Berhasil');
+            return redirect()->to('admin/arsip-primer');
+        }else{
+            session()->setFlashdata('error', 'Edit Data Arsip Primer Tidak Berhasil');
+            return redirect()->to('admin/arsip-primer');
+        }
     }
 
     /**
@@ -73,6 +157,20 @@ class ArsipPrimer extends ResourceController
      */
     public function delete($id = null)
     {
-        //
+        // $Primer = $this->APrimer->where('id_primer', $id)->first();
+        // $filepath = 'assets/surat/' . $this->APrimer->kode_primer;
+        
+        if( ! rmdir($filepath) ){
+            session()->setFlashdata('message', 'Hapus Data Arsip Primer Tidak Berhasil');
+            return redirect()->to('admin/arsip-primer');
+        }
+
+        if($this->APrimer->delete($id)){
+            session()->setFlashdata('message', 'Hapus Data Arsip Primer Berhasil');
+            return redirect()->to('admin/arsip-primer');
+        }else{
+            session()->setFlashdata('error', 'Hapus Data Arsip Primer Tidak Berhasil');
+            return redirect()->to('admin/arsip-primer');
+        }
     }
 }

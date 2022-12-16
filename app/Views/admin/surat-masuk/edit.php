@@ -30,14 +30,14 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Nomor Surat</label>
-                                                <input type="text" name="no_sm" class="form-control" placeholder="Masukan Nomor Surat">
+                                                <input type="text" name="no_sm" value="<?= $SMasuk->no_sm ?>" class="form-control" placeholder="Masukan Nomor Surat">
                                             </div>
                                             <div class="form-group">
                                                 <label>Kode Arsip</label>
                                                 <select class="form-control" name="kode_tersier">
                                                     <option>Pilih</option>
                                                     <?php foreach ($Tersier as $key => $value) { ?>
-                                                        <option value="<?= $value->kode_tersier ?>"><?= $value->tersier ?></option>
+                                                        <option value="<?= $value->kode_tersier ?>" <?= $SMasuk->kode_tersier == $value->kode_tersier ? 'selected' : '' ; ?>  ><?= $value->tersier ?></option>
                                                     <?php } ?>
                                                 </select>
                                             </div>
@@ -46,31 +46,32 @@
                                                 <select class="form-control" name="id_unit">
                                                     <option>Pilih</option>
                                                     <?php foreach ($Kerja as $key => $value) { ?>
-                                                        <option value="<?= $value->id_unit ?>"><?= $value->nama_unit ?></option>
+                                                        <option value="<?= $value->id_unit ?>" <?= $SMasuk->id_unit == $value->id_unit ? 'selected' : '' ; ?> ><?= $value->nama_unit ?></option>
                                                     <?php } ?>
                                                 </select>
                                             </div>
                                             <div class="form-group">
                                                 <label>Berkas Surat</label>
-                                                <input type="file" name="berkas" class="form-control" placeholder="Masukan Nama Arsip">
+                                                <input type="file" name="berkas" value="<?= $SMasuk->berkas ?>" class="form-control" placeholder="Masukan Nama Arsip">
+                                                <input type="hidden" name="berkas_url" value="<?= ROOTPATH . 'public/' . $SMasuk->berkas_url . '/' . $SMasuk->berkas ?>" class="form-control" placeholder="Masukan Nama Arsip">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Perihal</label>
-                                                <input type="text" name="perihal" class="form-control">
+                                                <input type="text" name="perihal" value="<?= $SMasuk->perihal ?>" class="form-control">
                                             </div>
                                             <div class="form-group">
                                                 <label>Lampiran</label>
-                                                <input type="text" name="lampiran" class="form-control">
+                                                <input type="text" name="lampiran" value="<?= $SMasuk->lampiran ?>" class="form-control">
                                             </div>
                                             <div class="form-group">
                                                 <label>Tanggal Diterima</label>
-                                                <input type="date" name="tgl_diterima" class="form-control" placeholder="Masukan Nama Arsip">
+                                                <input type="date" name="tgl_diterima" value="<?= $SMasuk->tgl_diterima ?>" class="form-control" placeholder="Masukan Nama Arsip">
                                             </div>
                                             <div class="form-group">
                                                 <label>Tanggal Surat Masuk</label>
-                                                <input type="date" name="tgl_sm" class="form-control" placeholder="Masukan Nama Arsip">
+                                                <input type="date" name="tgl_sm" value="<?= $SMasuk->tgl_sm ?>" class="form-control" placeholder="Masukan Nama Arsip">
                                             </div>
                                         </div>
                                     </div>

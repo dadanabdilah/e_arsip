@@ -23,6 +23,9 @@
          <div class="col">
             <div class="card">
                <!-- /.card-header -->
+               <div class="card-header">
+                  <a class=" btn btn-sm btn-success" href="<?php echo base_url('/admin/arsip-primer/new') ?>"><i class="fas fa-plus"></i>Tambah Data</a>
+               </div>
                <div class="card-body mb-4">
                   <?php if(session('error') !== null) {  ?>
                      <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -40,42 +43,30 @@
                         </button>
                      </div>
                   <?php }  ?>
-                  <a class=" btn btn-sm btn-success mb-3" href="<?php echo base_url('/admin/surat-masuk/new') ?>"><i class="fas fa-plus"></i>Tambah Data</a>
+                  
                   <table class="table table-bordered tabel-resposive">
                     <thead>
                         <tr>
                             <th style="width: 10px">No</th>
-                            <th class="text-center">Tanggal Diterima</th>
-                            <th>Tanggal Surat</th>
-                            <th>Nomor Surat</th>
-                            <th>Perihal</th>
-                            <th>Pengirim</th>
-                            <th>Lampiran</th>
                             <th class="text-center">Kode Arsip</th>
-                            <th class="text-center">Berkas</th>
+                            <th>Nama Arsip</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $no = 1 ; foreach ($SuratMasuk as $key => $value) { ?>
+                        <?php $no = 1 ; foreach ($Primer as $key => $value) { ?>
                            <tr>
                               <td><?= $no++ ?></td>
-                              <td><?= $value->tgl_diterima ?></td>
-                              <td><?= $value->tgl_sm ?></td>
-                              <td><?= $value->no_sm ?></td>
-                              <td><?= $value->perihal ?></td>
-                              <td><?= $value->id_unit ?></td>
-                              <td><?= $value->lampiran ?></td>
-                              <td><?= $value->kode_tersier ?></td>
+                              <td><?= $value->kode_primer ?></td>
+                              <td><?= $value->primer ?></td>
                               <td>
-                                 <div class="d-flex">
-                                    <a target="_blank" class=" btn btn-sm btn-primary mr-1" href="<?php echo base_url($value->berkas_url . '/' . $value->berkas) ?>"><i class="fa fa-download" aria-hidden="true"></i></a>
-                                    <a class=" btn btn-sm btn-primary" href="<?php echo base_url('admin/surat-masuk/' .  $value->id_sm . '/edit') ?>"><i class="fas fa-edit"></i></a>
-                                    <form id="delete-form" class="form-inline ml-1" action="<?= base_url('admin/surat-masuk/' .  $value->id_sm) ?>" method="POST">
-                                       <input type="hidden" name="_method" value="DELETE" />
-                                       <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Yakin Hapus')"><i class="fas fa-trash"></i></button>
-                                    </form>
-                                 </div>
+                              <div class="d-flex">
+                                 <a class=" btn btn-sm btn-primary mr-1" href="<?php echo base_url('admin/arsip-primer/' .  $value->id_primer . '/edit') ?>"><i class="fas fa-edit"></i></a>
+                                 <form id="delete-form" class="form-inline" action="<?= base_url('admin/arsip-primer/' .  $value->id_primer) ?>" method="POST">
+                                    <input type="hidden" name="_method" value="DELETE" />
+                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Yakin Hapus')"><i class="fas fa-trash"></i></button>
+                                 </form>
+                              </div>
                               </td>
                            </tr>
                         <?php } ?>
