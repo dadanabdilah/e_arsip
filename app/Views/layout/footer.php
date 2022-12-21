@@ -40,7 +40,7 @@
     <!-- overlayScrollbars -->
     <script src="<?php echo base_url('template/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') ?>"></script>
     <!-- AdminLTE App -->
-    <script src="<?php echo base_url('template/dist/js/adminlte.js') ?>"></script>
+    <script src="<?php echo base_url('template/js/adminlte.js') ?>"></script>
     <?= $this->renderSection('js') ?>
 </body>
 
