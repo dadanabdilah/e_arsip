@@ -2,12 +2,16 @@
 
 namespace App\Controllers;
 
+use App\Controllers\Admin\ArsipPrimer;
 use CodeIgniter\Controller;
 use CodeIgniter\HTTP\CLIRequest;
 use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
+
+use App\Models\ArsipTersierModel;
+use App\Models\SuratMasukModel;
 
 /**
  * Class BaseController
@@ -48,5 +52,8 @@ abstract class BaseController extends Controller
         // Preload any models, libraries, etc, here.
 
         // E.g.: $this->session = \Config\Services::session();
+
+        $this->ATersier = new ArsipTersierModel();
+        $this->SMasuk = new SuratMasukModel();
     }
 }
