@@ -77,6 +77,14 @@ class SuratMasuk extends ResourceController
      */
     public function create()
     {
+        $messages = [
+                'berkas' => [
+                    'mime_in' => 'Harus berupa file PDF',
+                    'ext_in' => 'Format file harus PDF',
+                    'max_size' => 'Ukuran file terlalu besar',
+                ],
+            ];
+
         if(!$this->validate([
             'kode_tersier' => 'required',
             'tgl_diterima' => 'required',
@@ -86,7 +94,8 @@ class SuratMasuk extends ResourceController
             'id_unit' => 'required',
             'lampiran' => 'required',
             'kode_tersier' => 'required',
-        ])){
+            'berkas' => 'mime_in[berkas,application/pdf]|ext_in[berkas,pdf]|max_size[berkas,4048]'
+        ], $messages)){
             session()->setFlashdata('error', $this->validator->listErrors());
 
             return redirect()->back()->withInput();
@@ -95,6 +104,8 @@ class SuratMasuk extends ResourceController
 
         $berkas = $this->request->getFile('berkas');
 
+        dd($berkas->getSize());
+
         if ( ! $berkas->hasMoved()) {
             $Tersier = $this->ATersier->select('kode_sekunder, kode_tersier')->where('kode_tersier', $this->request->getPost('kode_tersier'))->first();
             $Sekunder = $this->ASekunder->select('kode_primer, kode_sekunder')->where('kode_sekunder', $Tersier->kode_sekunder)->first();
@@ -102,7 +113,6 @@ class SuratMasuk extends ResourceController
 
             $filepath = ROOTPATH . 'public/assets/surat/' . $Primer->kode_primer . '/' . $Sekunder->kode_sekunder . '/' . $Tersier->kode_tersier;
             $fileurl = 'assets/surat/' . $Primer->kode_primer . '/' . $Sekunder->kode_sekunder . '/' . $Tersier->kode_tersier;
-            // $filepath = ROOTPATH . 'public/assets/surat/';
 
             if( ! is_dir($filepath)){
                 if(! mkdir($filepath, 0777, TRUE)){
@@ -170,7 +180,112 @@ class SuratMasuk extends ResourceController
      */
     public function update($id = null)
     {
-        //
+        $messages = [
+            'berkas' => [
+                'mime_in' => 'Harus berupa file PDF',
+                'ext_in' => 'Format file harus PDF',
+                'max_size' => 'Ukuran file terlalu besar',
+            ],
+        ];
+
+        if(!$this->validate([
+            'kode_tersier' => 'required',
+            'tgl_diterima' => 'required',
+            'tgl_sm' => 'required',
+            'no_sm' => 'required',
+            'perihal' => 'required',
+            'id_unit' => 'required',
+            'lampiran' => 'required',
+            'kode_tersier' => 'required',
+            'berkas' => 'mime_in[berkas,application/pdf]|ext_in[berkas,pdf]|max_size[berkas,4048]'
+        ])){
+            session()->setFlashdata('error', $this->validator->listErrors());
+
+            return redirect()->back()->withInput();
+        }
+
+        
+        $berkas = $this->request->getFile('berkas');
+        
+        if( ! $berkas->isFile()){
+            $request = [
+                'id_sm' => $id,
+                'no_sm' => $this->request->getPost('no_sm'),
+                'id_unit' => $this->request->getPost('id_unit'),
+                'berkas' => $this->request->getPost('old_berkas'),
+                'berkas_url' => $this->request->getPost('berkas_url'),
+                'perihal' => $this->request->getPost('perihal'),
+                'lampiran' => $this->request->getPost('lampiran'),
+                'kode_tersier' => $this->request->getPost('kode_tersier'),
+                'tgl_diterima' => $this->request->getPost('tgl_diterima'),
+                'tgl_sm' => $this->request->getPost('tgl_sm'),
+            ];
+
+    
+            if($this->model->save($request)){
+                session()->setFlashdata('message', 'Edit Data Surat Masuk Berhasil');
+                return redirect()->to('admin/surat-masuk');
+            }else{
+                session()->setFlashdata('error', 'Edit Data Surat Masuk Tidak Berhasil');
+                return redirect()->to('admin/surat-masuk');
+            }
+        }
+
+
+        if ( ! $berkas->hasMoved()) {
+            $SMasuk = $this->SMasuk->where('id_sm', $id)->first();
+            $old_filepath = ROOTPATH . 'public/' . $SMasuk->berkas_url . '/' . $SMasuk->berkas;
+
+            // hapus file lama
+            if( ! unlink($old_filepath)){
+                session()->setFlashdata('message', 'Edit Data Surat Masuk Tudak Berhasil');
+                return redirect()->to('admin/surat-masuk');
+            }
+
+            $Tersier = $this->ATersier->select('kode_sekunder, kode_tersier')->where('kode_tersier', $this->request->getPost('kode_tersier'))->first();
+            $Sekunder = $this->ASekunder->select('kode_primer, kode_sekunder')->where('kode_sekunder', $Tersier->kode_sekunder)->first();
+            $Primer = $this->APrimer->select('kode_primer')->where('kode_primer', $Sekunder->kode_primer)->first();
+
+            $filepath = ROOTPATH . 'public/assets/surat/' . $Primer->kode_primer . '/' . $Sekunder->kode_sekunder . '/' . $Tersier->kode_tersier;
+            $fileurl = 'assets/surat/' . $Primer->kode_primer . '/' . $Sekunder->kode_sekunder . '/' . $Tersier->kode_tersier;
+
+            if( ! is_dir($filepath)){
+                if(! mkdir($filepath, 0777, TRUE)){
+                    session()->setFlashdata('message', 'Edit Data Surat Masuk Tidak Berhasil');
+                    return redirect()->to('admin/surat-masuk');
+                }
+            }
+
+            if($berkas->move($filepath)){
+                $request = [
+                    'id_sm' => $id,
+                    'no_sm' => $this->request->getPost('no_sm'),
+                    'id_unit' => $this->request->getPost('id_unit'),
+                    'berkas' => $berkas->getName(),
+                    'berkas_url' => $fileurl,
+                    'perihal' => $this->request->getPost('perihal'),
+                    'lampiran' => $this->request->getPost('lampiran'),
+                    'kode_tersier' => $this->request->getPost('kode_tersier'),
+                    'tgl_diterima' => $this->request->getPost('tgl_diterima'),
+                    'tgl_sm' => $this->request->getPost('tgl_sm'),
+                ];
+        
+                if($this->model->save($request)){
+                    session()->setFlashdata('message', 'Edit Data Surat Masuk Berhasil');
+                    return redirect()->to('admin/surat-masuk');
+                }else{
+                    session()->setFlashdata('error', 'Edit Data Surat Masuk Tidak Berhasil');
+                    return redirect()->to('admin/surat-masuk');
+                }
+            } else {
+                session()->setFlashdata('error', 'Edit Data Surat Masuk Tidak Berhasil');
+                return redirect()->to('admin/surat-masuk');
+            }
+    
+        } else {
+            session()->setFlashdata('error', 'Edit Data Surat Masuk Tidak Berhasil');
+            return redirect()->to('admin/surat-masuk');
+        }
     }
 
     /**
@@ -180,6 +295,14 @@ class SuratMasuk extends ResourceController
      */
     public function delete($id = null)
     {
+        $SMasuk = $this->SMasuk->where('id_sm', $id)->first();
+        $path = ROOTPATH . 'public/' . $SMasuk->berkas_url . '/' . $SMasuk->berkas;
+
+        if( ! unlink($path)){
+            session()->setFlashdata('message', 'Hapus Data Surat Masuk Tudak Berhasil');
+            return redirect()->to('admin/surat-masuk');
+        }
+
         if($this->SMasuk->delete($id)){
             session()->setFlashdata('message', 'Hapus Data Surat Masuk Berhasil');
             return redirect()->to('admin/surat-masuk');
@@ -187,5 +310,19 @@ class SuratMasuk extends ResourceController
             session()->setFlashdata('error', 'Hapus Data Surat Masuk Tidak Berhasil');
             return redirect()->to('admin/surat-masuk');
         }
+    }
+
+    public function preview($id = null)
+    {
+        $data = [
+            'Primer' => $this->APrimer->findAll(),
+            'Tersier' => $this->ATersier->findAll(),
+            'Sekunder' => $this->ASekunder->findAll(),
+            'Kerja' => $this->UKerja->findAll(),
+            'SMasuk' => $this->SMasuk->where('id_sm', $id)->first(),
+            'title' => 'Surat Masuk',
+            'sub_title' => 'Edit Data Surat Masuk'
+        ];
+        return view('admin/surat-masuk/edit', $data);
     }
 }
