@@ -20,36 +20,49 @@
                 <div class="col-md-12">
                     <div class="card">
                         <!-- /.card-header -->
+                        <div class="card-header">
+                            <a href="<?= site_url('admin/surat-keluar') ?>" class="btn btn-primary btn-sm">Kembali</a>
+                        </div>
                         <div class="card-body">
-                            <form method="POST" action="<?php echo base_url('/Arsip/tambahDataAksi') ?>">
+                            <form method="POST" action="<?php echo base_url('admin/surat-keluar') ?>" enctype="multipart/form-data">
                                 <div class="card-body">
                                     <div class="form-group">
+                                        <label>Nomor Surat</label>
+                                        <input type="text" name="no_sk" class="form-control" placeholder="Masukan Nomor Surat">
+                                    </div>
+                                    <div class="form-group">
                                         <label>Kode Arsip</label>
-                                        <select class="form-control">
+                                        <select class="form-control" name="kode_tersier">
                                             <option>Pilih</option>
+                                            <?php foreach ($Tersier as $key => $value) { ?>
+                                                <option value="<?= $value->kode_tersier ?>"><?= $value->tersier ?></option>
+                                            <?php } ?>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label>Unit Kerja</label>
-                                        <select class="form-control">
+                                        <select class="form-control" name="id_unit">
                                             <option>Pilih</option>
+                                            <?php foreach ($Kerja as $key => $value) { ?>
+                                                <option value="<?= $value->id_unit ?>"><?= $value->nama_unit ?></option>
+                                            <?php } ?>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label>Berkas Surat</label>
-                                        <input type="file" name="surat" class="form-control" placeholder="Masukan Nama Arsip">
+                                        <input type="file" name="berkas" class="form-control" placeholder="Masukan Nama berkas">
                                     </div>
                                     <div class="form-group">
                                         <label>Perihal</label>
-                                        <input type="text" name="surat" class="form-control">
+                                        <input type="text" name="perihal" class="form-control">
                                     </div>
                                     <div class="form-group">
-                                        <label>Tanggal Diterima</label>
-                                        <input type="date" name="tanggal_diterima" class="form-control" placeholder="Masukan Nama Arsip">
+                                        <label>Hubungan Surat</label>
+                                        <input type="text" name="hubungan" class="form-control" placeholder="Masukan hubungan surat">
                                     </div>
                                     <div class="form-group">
-                                        <label>Tanggal Surat Masuk</label>
-                                        <input type="date" name="tanggal_masuk" class="form-control" placeholder="Masukan Nama Arsip">
+                                        <label>Tanggal Surat Keluar</label>
+                                        <input type="date" name="tgl_sk" class="form-control" placeholder="Masukan tanggal">
                                     </div>
                                 </div>
                                 <!-- /.card-body -->
@@ -62,14 +75,14 @@
 
                     </div>
                     <!-- /.card -->
-                <!-- right col -->
+                    <!-- right col -->
                 </div>
-            <!-- /.row (main row) -->
+                <!-- /.row (main row) -->
             </div>
-        <!-- /.container-fluid -->
+            <!-- /.container-fluid -->
         </div>
     </section>
-<!-- /.content -->
+    <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
 

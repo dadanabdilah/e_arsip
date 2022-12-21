@@ -26,7 +26,7 @@
                     <!-- small box -->
                     <div class="small-box bg-info">
                         <div class="inner">
-                            <h3>1</h3>
+                            <h3><?= $arsip ?></h3>
 
                             <p>Data Arsip</p>
                         </div>
@@ -41,7 +41,7 @@
                     <!-- small box -->
                     <div class="small-box bg-success">
                         <div class="inner">
-                            <h3>10</h3>
+                            <h3><?= $sm ?></h3>
 
                             <p>Surat Masuk</p>
                         </div>
@@ -86,7 +86,7 @@
             <!-- /.row -->
 
 
-        <!-- /.row (main row) -->
+            <!-- /.row (main row) -->
         </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
