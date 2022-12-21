@@ -62,10 +62,13 @@
                               <td><?= $value->nama_unit ?></td>
                               <td><?= $value->kontak ?></td>
                               <td>
-                              <center>
-                                 <a class=" btn btn-sm btn-primary" href="<?php echo base_url('admin/unit-kerja/' .  $value->id_unit . '/edit') ?>"><i class="fas fa-edit"></i></a>
-                                 <a onclick="return confirm('Yakin Hapus')" class=" btn btn-sm btn-danger" href="<?php echo base_url('admin/unit-kerja/' .  $value->id_unit) ?>"><i class="fas fa-trash"></i></a>
-                              </center>
+                                 <div class="d-flex">
+                                    <a class=" btn btn-sm btn-primary mr-1" href="<?php echo base_url('admin/unit-kerja/' .  $value->id_unit . '/edit') ?>"><i class="fas fa-edit"></i></a>
+                                    <form id="delete-form" class="form-inline" action="<?= base_url('admin/unit-kerja/' .  $value->id_unit) ?>" method="POST">
+                                       <input type="hidden" name="_method" value="DELETE" />
+                                       <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Yakin Hapus')"><i class="fas fa-trash"></i></button>
+                                    </form>
+                                 </div>
                               </td>
                            </tr>
                         <?php } ?>

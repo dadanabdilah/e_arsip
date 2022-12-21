@@ -148,6 +148,12 @@ class UnitKerja extends ResourceController
      */
     public function delete($id = null)
     {
-        //
+        if ($this->UKerja->delete($id)) {
+            session()->setFlashdata('message', 'Hapus Data Unit Kerja Berhasil');
+            return redirect()->to('admin/unit_kerja');
+        } else {
+            session()->setFlashdata('error', 'Hapus Data Unit Kerja Tidak Berhasil');
+            return redirect()->to('admin/unit_kerja');
+        }
     }
 }

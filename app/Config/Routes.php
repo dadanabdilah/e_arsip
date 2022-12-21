@@ -36,17 +36,7 @@ $routes->set404Override();
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 //$routes->get('/', 'Home::index');
-$routes->get('/', 'Login::index');
-
-$routes->get('/Arsip', 'Arsip::index');
-$routes->get('/Arsip/tambahData', 'Arsip::tambahData');
-$routes->post('/Arsip/tambahDataAksi', 'Arsip::tambahDataAksi');
-$routes->post('/Arsip/deleteData', 'Arsip::deleteData');
-$routes->get('/Unitkerja', 'Unitkerja::index');
-$routes->get('/Unitkerja/tambahData', 'Unitkerja::tambahData');
-$routes->get('/Suratmasuk', 'Suratmasuk::index');
-$routes->get('/Suratmasuk/tambahData', 'Suratmasuk::tambahData');
-
+$routes->get('/', 'Admin\Dashboard::index');
 $routes->group("admin", ["namespace" => "App\Controllers\Admin"], function ($routes){
     $routes->resource('dashboard');
     $routes->resource('arsip-primer', ['controller' => 'ArsipPrimer'], ['except' => 'show, new, edit, delete']);
@@ -56,6 +46,7 @@ $routes->group("admin", ["namespace" => "App\Controllers\Admin"], function ($rou
     $routes->resource('surat-masuk', ['controller' => 'SuratMasuk']);
     $routes->resource('surat-keluar', ['controller' => 'SuratKeluar']);
     $routes->resource('unit-kerja', ['controller' => 'UnitKerja']);
+    $routes->resource('bidang', ['controller' => 'Bidang']);
 });
 
 /*

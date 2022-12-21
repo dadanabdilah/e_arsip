@@ -25,8 +25,6 @@
     <script src="<?php echo base_url('template/plugins/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
     <!-- ChartJS -->
     <script src="<?php echo base_url('template/plugins/chart.js/Chart.min.js') ?>"></script>
-    <!-- Sparkline -->
-    <script src="<?php echo base_url('template/plugins/sparklines/sparkline.js') ?>"></script>
     <!-- JQVMap -->
     <script src="<?php echo base_url('template/plugins/jqvmap/jquery.vmap.min.js') ?>"></script>
     <script src="<?php echo base_url('template/plugins/jqvmap/maps/jquery.vmap.usa.js') ?>"></script>
@@ -43,8 +41,7 @@
     <script src="<?php echo base_url('template/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') ?>"></script>
     <!-- AdminLTE App -->
     <script src="<?php echo base_url('template/dist/js/adminlte.js') ?>"></script>
-    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-    <script src="<?php echo base_url('template/dist/js/pages/dashboard.js') ?>"></script>
+    <?= $this->renderSection('js') ?>
 </body>
 
 </html>
