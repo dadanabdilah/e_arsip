@@ -35,10 +35,10 @@ class SuratMasuk extends ResourceController
     public function index()
     {
         $data = [
-                    'SuratMasuk'  => $this->SMasuk->findAll(),
-                    'title' => 'Data Surat Masuk',
-                    'sub_title' => 'Data Surat Masuk'
-                ];
+            'SuratMasuk'  => $this->SMasuk->findAll(),
+            'title' => 'Data Surat Masuk',
+            'sub_title' => 'Data Surat Masuk'
+        ];
         return view('admin/surat-masuk/index', $data);
     }
 
@@ -58,7 +58,7 @@ class SuratMasuk extends ResourceController
      * @return mixed
      */
     public function new()
-    {   
+    {
         $data = [
             'Primer' => $this->APrimer->findAll(),
             'Tersier' => $this->ATersier->findAll(),
@@ -78,14 +78,14 @@ class SuratMasuk extends ResourceController
     public function create()
     {
         $messages = [
-                'berkas' => [
-                    'mime_in' => 'Harus berupa file PDF',
-                    'ext_in' => 'Format file harus PDF',
-                    'max_size' => 'Ukuran file terlalu besar',
-                ],
-            ];
+            'berkas' => [
+                'mime_in' => 'Harus berupa file PDF',
+                'ext_in' => 'Format file harus PDF',
+                'max_size' => 'Ukuran file terlalu besar',
+            ],
+        ];
 
-        if(!$this->validate([
+        if (!$this->validate([
             'kode_tersier' => 'required',
             'tgl_diterima' => 'required',
             'tgl_sm' => 'required',
@@ -95,18 +95,15 @@ class SuratMasuk extends ResourceController
             'lampiran' => 'required',
             'kode_tersier' => 'required',
             'berkas' => 'mime_in[berkas,application/pdf]|ext_in[berkas,pdf]|max_size[berkas,4048]'
-        ], $messages)){
+        ], $messages)) {
             session()->setFlashdata('error', $this->validator->listErrors());
 
             return redirect()->back()->withInput();
         }
 
-
         $berkas = $this->request->getFile('berkas');
 
-        dd($berkas->getSize());
-
-        if ( ! $berkas->hasMoved()) {
+        if (!$berkas->hasMoved()) {
             $Tersier = $this->ATersier->select('kode_sekunder, kode_tersier')->where('kode_tersier', $this->request->getPost('kode_tersier'))->first();
             $Sekunder = $this->ASekunder->select('kode_primer, kode_sekunder')->where('kode_sekunder', $Tersier->kode_sekunder)->first();
             $Primer = $this->APrimer->select('kode_primer')->where('kode_primer', $Sekunder->kode_primer)->first();
@@ -114,14 +111,14 @@ class SuratMasuk extends ResourceController
             $filepath = ROOTPATH . 'public/assets/surat/' . $Primer->kode_primer . '/' . $Sekunder->kode_sekunder . '/' . $Tersier->kode_tersier;
             $fileurl = 'assets/surat/' . $Primer->kode_primer . '/' . $Sekunder->kode_sekunder . '/' . $Tersier->kode_tersier;
 
-            if( ! is_dir($filepath)){
-                if(! mkdir($filepath, 0777, TRUE)){
+            if (!is_dir($filepath)) {
+                if (!mkdir($filepath, 0777, TRUE)) {
                     session()->setFlashdata('message', 'Tambah Data Surat Masuk Tidak Berhasil');
                     return redirect()->to('admin/surat-masuk');
                 }
             }
 
-            if($berkas->move($filepath)){
+            if ($berkas->move($filepath)) {
                 $request = [
                     'no_sm' => $this->request->getPost('no_sm'),
                     'id_unit' => $this->request->getPost('id_unit'),
@@ -133,13 +130,13 @@ class SuratMasuk extends ResourceController
                     'tgl_diterima' => $this->request->getPost('tgl_diterima'),
                     'tgl_sm' => $this->request->getPost('tgl_sm'),
                 ];
-        
+
                 $result = $this->model->save($request);
-        
-                if($result){
+
+                if ($result) {
                     session()->setFlashdata('message', 'Tambah Data Surat Masuk Berhasil');
                     return redirect()->to('admin/surat-masuk');
-                }else{
+                } else {
                     session()->setFlashdata('error', 'Tambah Data Surat Masuk Tidak Berhasil');
                     return redirect()->to('admin/surat-masuk');
                 }
@@ -147,7 +144,6 @@ class SuratMasuk extends ResourceController
                 session()->setFlashdata('error', 'Tambah Data Surat Masuk Tidak Berhasil');
                 return redirect()->to('admin/surat-masuk');
             }
-    
         } else {
             session()->setFlashdata('error', 'Tambah Data Surat Masuk Tidak Berhasil');
             return redirect()->to('admin/surat-masuk');
@@ -188,7 +184,7 @@ class SuratMasuk extends ResourceController
             ],
         ];
 
-        if(!$this->validate([
+        if (!$this->validate([
             'kode_tersier' => 'required',
             'tgl_diterima' => 'required',
             'tgl_sm' => 'required',
@@ -198,16 +194,15 @@ class SuratMasuk extends ResourceController
             'lampiran' => 'required',
             'kode_tersier' => 'required',
             'berkas' => 'mime_in[berkas,application/pdf]|ext_in[berkas,pdf]|max_size[berkas,4048]'
-        ])){
+        ])) {
             session()->setFlashdata('error', $this->validator->listErrors());
 
             return redirect()->back()->withInput();
         }
 
-        
         $berkas = $this->request->getFile('berkas');
-        
-        if( ! $berkas->isFile()){
+
+        if (!$berkas->isFile()) {
             $request = [
                 'id_sm' => $id,
                 'no_sm' => $this->request->getPost('no_sm'),
@@ -221,23 +216,23 @@ class SuratMasuk extends ResourceController
                 'tgl_sm' => $this->request->getPost('tgl_sm'),
             ];
 
-    
-            if($this->model->save($request)){
+
+            if ($this->model->save($request)) {
                 session()->setFlashdata('message', 'Edit Data Surat Masuk Berhasil');
                 return redirect()->to('admin/surat-masuk');
-            }else{
+            } else {
                 session()->setFlashdata('error', 'Edit Data Surat Masuk Tidak Berhasil');
                 return redirect()->to('admin/surat-masuk');
             }
         }
 
 
-        if ( ! $berkas->hasMoved()) {
+        if (!$berkas->hasMoved()) {
             $SMasuk = $this->SMasuk->where('id_sm', $id)->first();
             $old_filepath = ROOTPATH . 'public/' . $SMasuk->berkas_url . '/' . $SMasuk->berkas;
 
             // hapus file lama
-            if( ! unlink($old_filepath)){
+            if (!unlink($old_filepath)) {
                 session()->setFlashdata('message', 'Edit Data Surat Masuk Tudak Berhasil');
                 return redirect()->to('admin/surat-masuk');
             }
@@ -249,14 +244,14 @@ class SuratMasuk extends ResourceController
             $filepath = ROOTPATH . 'public/assets/surat/' . $Primer->kode_primer . '/' . $Sekunder->kode_sekunder . '/' . $Tersier->kode_tersier;
             $fileurl = 'assets/surat/' . $Primer->kode_primer . '/' . $Sekunder->kode_sekunder . '/' . $Tersier->kode_tersier;
 
-            if( ! is_dir($filepath)){
-                if(! mkdir($filepath, 0777, TRUE)){
+            if (!is_dir($filepath)) {
+                if (!mkdir($filepath, 0777, TRUE)) {
                     session()->setFlashdata('message', 'Edit Data Surat Masuk Tidak Berhasil');
                     return redirect()->to('admin/surat-masuk');
                 }
             }
 
-            if($berkas->move($filepath)){
+            if ($berkas->move($filepath)) {
                 $request = [
                     'id_sm' => $id,
                     'no_sm' => $this->request->getPost('no_sm'),
@@ -269,11 +264,11 @@ class SuratMasuk extends ResourceController
                     'tgl_diterima' => $this->request->getPost('tgl_diterima'),
                     'tgl_sm' => $this->request->getPost('tgl_sm'),
                 ];
-        
-                if($this->model->save($request)){
+
+                if ($this->model->save($request)) {
                     session()->setFlashdata('message', 'Edit Data Surat Masuk Berhasil');
                     return redirect()->to('admin/surat-masuk');
-                }else{
+                } else {
                     session()->setFlashdata('error', 'Edit Data Surat Masuk Tidak Berhasil');
                     return redirect()->to('admin/surat-masuk');
                 }
@@ -281,7 +276,6 @@ class SuratMasuk extends ResourceController
                 session()->setFlashdata('error', 'Edit Data Surat Masuk Tidak Berhasil');
                 return redirect()->to('admin/surat-masuk');
             }
-    
         } else {
             session()->setFlashdata('error', 'Edit Data Surat Masuk Tidak Berhasil');
             return redirect()->to('admin/surat-masuk');
@@ -298,15 +292,15 @@ class SuratMasuk extends ResourceController
         $SMasuk = $this->SMasuk->where('id_sm', $id)->first();
         $path = ROOTPATH . 'public/' . $SMasuk->berkas_url . '/' . $SMasuk->berkas;
 
-        if( ! unlink($path)){
+        if (!unlink($path)) {
             session()->setFlashdata('message', 'Hapus Data Surat Masuk Tudak Berhasil');
             return redirect()->to('admin/surat-masuk');
         }
 
-        if($this->SMasuk->delete($id)){
+        if ($this->SMasuk->delete($id)) {
             session()->setFlashdata('message', 'Hapus Data Surat Masuk Berhasil');
             return redirect()->to('admin/surat-masuk');
-        }else{
+        } else {
             session()->setFlashdata('error', 'Hapus Data Surat Masuk Tidak Berhasil');
             return redirect()->to('admin/surat-masuk');
         }
