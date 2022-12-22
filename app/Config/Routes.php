@@ -36,7 +36,7 @@ $routes->set404Override();
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 //$routes->get('/', 'Home::index');
-$routes->get('/', 'Admin\Dashboard::index');
+$routes->get('/admin/dashboard', 'Admin\Dashboard::index');
 $routes->group("admin", ["namespace" => "App\Controllers\Admin"], function ($routes) {
     $routes->resource('dashboard');
     $routes->resource('arsip-primer', ['controller' => 'ArsipPrimer'], ['except' => 'show, new, edit, delete']);
@@ -48,6 +48,11 @@ $routes->group("admin", ["namespace" => "App\Controllers\Admin"], function ($rou
     $routes->resource('disposisi', ['controller' => 'Disposisi']);
     $routes->resource('unit-kerja', ['controller' => 'UnitKerja']);
     $routes->resource('bidang', ['controller' => 'Bidang']);
+});
+
+$routes->group("pimpinan", ["namespace" => "App\Controllers\Pimpinan"], function ($routes) {
+    $routes->resource('dashboard');
+    $routes->resource('disposisi');
 });
 
 /*

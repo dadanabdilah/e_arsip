@@ -56,7 +56,6 @@
                                         <label>Status</label>
                                         <select class="form-control" name="status">
                                             <option value="" selected disabled>Pilih</option>
-                                            <option value="menunggu_diajukan" <?= $Disposisi->status == 'menunggu_diajukan' ? 'selected' : '' ?>>Menunggu Diajukan</option>
                                             <option value="diajukan" <?= $Disposisi->status == 'diajukan' ? 'selected' : '' ?>>Diajukan</option>
                                             <option value="selesai" <?= $Disposisi->status == 'selesai' ? 'selected' : '' ?>>Selesai</option>
                                         </select>
