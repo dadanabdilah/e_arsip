@@ -56,7 +56,7 @@ CREATE TABLE `bidang` (
 
 DROP TABLE IF EXISTS `disposisi`;
 CREATE TABLE `disposisi` (
-  `id_disposisi` int(11) NOT NULL,
+  `id_disposisi` int(11) NOT NULL AUTO_INCREMENT,
   `tgl_terima` date NOT NULL,
   `tingkat_keamanan` varchar(50) NOT NULL,
   `tgl_selesai` date NOT NULL,
@@ -64,6 +64,7 @@ CREATE TABLE `disposisi` (
   `disposisi` varchar(100) NOT NULL,
   `status` enum('menunggu_diajukan','diajukan','selesai') NOT NULL,
   `id_bidang` int(11) NOT NULL,
+  PRIMARY KEY (`id_disposisi`),
   KEY `id_sm` (`id_sm`),
   KEY `id_bidang` (`id_bidang`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
@@ -120,4 +121,4 @@ INSERT INTO `unit_kerja` (`id_unit`, `kode_unit`, `nama_unit`, `kontak`) VALUES
 (2,	'SMKN1Kng',	'SMK Negeri 1 Kuningan',	'085112345678'),
 (3,	'SMKN3Kng',	'SMK Negeri 3 Kuningan',	'01281938913');
 
--- 2022-12-22 07:25:12
+-- 2022-12-22 08:36:56
