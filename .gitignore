@@ -128,3 +128,6 @@ nb-configuration.xml
 /phpunit*.xml
 /.phpunit.*.cache
 
+public/assets/surat/*
+public/assets/surat_keluar/*
+
