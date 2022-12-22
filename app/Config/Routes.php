@@ -37,7 +37,7 @@ $routes->set404Override();
 // route since we don't have to scan directories.
 //$routes->get('/', 'Home::index');
 $routes->get('/', 'Admin\Dashboard::index');
-$routes->group("admin", ["namespace" => "App\Controllers\Admin"], function ($routes){
+$routes->group("admin", ["namespace" => "App\Controllers\Admin"], function ($routes) {
     $routes->resource('dashboard');
     $routes->resource('arsip-primer', ['controller' => 'ArsipPrimer'], ['except' => 'show, new, edit, delete']);
     $routes->resource('arsip-sekunder', ['controller' => 'ArsipSekunder']);
@@ -45,6 +45,7 @@ $routes->group("admin", ["namespace" => "App\Controllers\Admin"], function ($rou
     $routes->resource('unit-kerja', ['controller' => 'UnitKerja']);
     $routes->resource('surat-masuk', ['controller' => 'SuratMasuk']);
     $routes->resource('surat-keluar', ['controller' => 'SuratKeluar']);
+    $routes->resource('disposisi', ['controller' => 'Disposisi']);
     $routes->resource('unit-kerja', ['controller' => 'UnitKerja']);
     $routes->resource('bidang', ['controller' => 'Bidang']);
 });
