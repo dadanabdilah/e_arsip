@@ -1,5 +1,5 @@
 <?php echo view('layout/header'); ?>
-<?php echo view('layout/sidebar'); ?>
+<?php echo view('layout/bid-sidebar'); ?>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -22,10 +22,6 @@
             <div class="row">
                 <div class="col">
                     <div class="card">
-                        <!-- /.card-header -->
-                        <div class="card-header">
-                            <a class=" btn btn-sm btn-success" href="<?php echo base_url('/admin/disposisi/new') ?>"><i class="fas fa-plus"></i>Tambah Data</a>
-                        </div>
                         <div class="card-body mb-4">
                             <?php if (session('error') !== null) {  ?>
                                 <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -72,11 +68,7 @@
                                             <td><?= $value->status == 'menunggu_diajukan' ? '<span class="badge badge-warning">Menunggu Diajukan</span>' : ($value->status == 'diajukan' ? '<span class="badge badge-warning">Diajukan</span>' : ($value->status == 'proses' ? '<span class="badge badge-warning">Proses</span>' : ($value->status == 'proses' ? '<span class="badge badge-warning">Proses</span>' : '<span class="badge badge-success">Selesai</span>'))) ?></td>
                                             <td>
                                                 <div class="d-flex">
-                                                    <a class=" btn btn-sm btn-primary mr-1" href="<?php echo base_url('admin/disposisi/' .  $value->id_disposisi . '/edit') ?>"><i class="fas fa-edit"></i></a>
-                                                    <form id="delete-form" class="form-inline" action="<?= base_url('admin/disposisi/' .  $value->id_disposisi) ?>" method="POST">
-                                                        <input type="hidden" name="_method" value="DELETE" />
-                                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Yakin Hapus')"><i class="fas fa-trash"></i></button>
-                                                    </form>
+                                                    <a class=" btn btn-sm btn-primary mr-1" href="<?php echo base_url('bid/disposisi/' .  $value->id_disposisi . '/edit') ?>"><i class="fas fa-edit"></i></a>
                                                 </div>
                                             </td>
                                         </tr>

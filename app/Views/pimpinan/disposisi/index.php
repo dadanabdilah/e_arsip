@@ -65,7 +65,7 @@
                                             <td><?= $value->no_sm ?></td>
                                             <td><?= $value->nama_bidang ?></td>
                                             <td><?= $value->disposisi ?></td>
-                                            <td><?= $value->status == 'menunggu_diajukan' ? 'Menunggu Diajukan' : ($value->status == 'diajukan' ? '<span class="badge badge-warning">Diajukan</span>' : '<span class="badge badge-success">Selesai</span>') ?></td>
+                                            <td><?= $value->status == 'menunggu_diajukan' ? '<span class="badge badge-warning">Menunggu Diajukan</span>' : ($value->status == 'diajukan' ? '<span class="badge badge-warning">Diajukan</span>' : ($value->status == 'proses' ? '<span class="badge badge-warning">Proses</span>' : ($value->status == 'proses' ? '<span class="badge badge-warning">Proses</span>' : '<span class="badge badge-success">Selesai</span>'))) ?></td>
                                             <td>
                                                 <div class="d-flex">
                                                     <a class=" btn btn-sm btn-primary mr-1" href="<?php echo base_url('pimpinan/disposisi/' .  $value->id_disposisi . '/edit') ?>"><i class="fas fa-edit"></i></a>

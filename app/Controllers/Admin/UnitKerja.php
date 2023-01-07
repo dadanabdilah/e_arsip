@@ -68,26 +68,26 @@ class UnitKerja extends ResourceController
      */
     public function create()
     {
-        if(!$this->validate([
+        if (!$this->validate([
             'kode' => 'required',
             'nama' => 'required',
             'kontak' => 'required',
-        ])){
+        ])) {
             session()->setFlashdata('error', $this->validator->listErrors());
 
             return redirect()->back()->withInput();
         }
 
         $request = [
-                        'kode_unit' => $this->request->getPost('kode'),
-                        'nama_unit' => $this->request->getPost('nama'),
-                        'kontak' => $this->request->getPost('kontak')
-                    ];
-    
-        if($this->model->save($request)){
+            'kode_unit' => $this->request->getPost('kode'),
+            'nama_unit' => $this->request->getPost('nama'),
+            'kontak' => $this->request->getPost('kontak')
+        ];
+
+        if ($this->model->save($request)) {
             session()->setFlashdata('message', 'Tambah Data Unit Kerja Berhasil');
             return redirect()->to('admin/unit-kerja');
-        }else{
+        } else {
             session()->setFlashdata('error', 'Tambah Data Unit Kerja Tidak Berhasil');
             return redirect()->to('admin/unit-kerja');
         }
@@ -115,27 +115,27 @@ class UnitKerja extends ResourceController
      */
     public function update($id = null)
     {
-        if(!$this->validate([
+        if (!$this->validate([
             'kode' => 'required',
             'nama' => 'required',
             'kontak' => 'required',
-        ])){
+        ])) {
             session()->setFlashdata('error', $this->validator->listErrors());
 
             return redirect()->back()->withInput();
         }
 
         $request = [
-                        'id_unit' => $id,
-                        'kode_unit' => $this->request->getPost('kode'),
-                        'nama_unit' => $this->request->getPost('nama'),
-                        'kontak' => $this->request->getPost('kontak')
-                    ];
+            'id_unit' => $id,
+            'kode_unit' => $this->request->getPost('kode'),
+            'nama_unit' => $this->request->getPost('nama'),
+            'kontak' => $this->request->getPost('kontak')
+        ];
 
-        if($this->UKerja->save($request)){
+        if ($this->UKerja->save($request)) {
             session()->setFlashdata('message', 'Edit Data Unit Kerja Berhasil');
             return redirect()->to('admin/unit-kerja');
-        }else{
+        } else {
             session()->setFlashdata('error', 'Edit Data Unit Kerja Tidak Berhasil');
             return redirect()->to('admin/unit-kerja');
         }
@@ -150,10 +150,10 @@ class UnitKerja extends ResourceController
     {
         if ($this->UKerja->delete($id)) {
             session()->setFlashdata('message', 'Hapus Data Unit Kerja Berhasil');
-            return redirect()->to('admin/unit_kerja');
+            return redirect()->to('admin/unit-kerja');
         } else {
             session()->setFlashdata('error', 'Hapus Data Unit Kerja Tidak Berhasil');
-            return redirect()->to('admin/unit_kerja');
+            return redirect()->to('admin/unit-kerja');
         }
     }
 }

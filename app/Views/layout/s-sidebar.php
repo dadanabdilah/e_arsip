@@ -6,7 +6,7 @@
                              <img src="<?php echo base_url('template/img/user2-160x160.jpg') ?>" class="img-circle elevation-2" alt="User Image">
                          </div>
                          <div class="info">
-                             <a href="#" class="d-block">Pimpinan</a>
+                             <a href="#" class="d-block">Sekretaris</a>
                          </div>
                      </div>
                      <!-- Sidebar Menu -->
@@ -15,20 +15,43 @@
                              <!-- Add icons to the links using the .nav-icon class
                             with font-awesome or any other icon font library -->
                              <li class="nav-item menu-open">
-                                 <a href="<?php echo base_url('pimpinan/dashboard') ?>" class="nav-link active">
+                                 <a href="<?php echo base_url('sekretaris/dashboard') ?>" class="nav-link active">
                                      <i class="nav-icon fas fa-tachometer-alt"></i>
                                      <p>
                                          Dashboard
+
                                      </p>
                                  </a>
                              </li>
+
                              <li class="nav-item">
-                                 <a href="<?php echo base_url('pimpinan/disposisi') ?>" class="nav-link">
-                                     <i class="far fa-solid fa-envelope nav-icon"></i>
+                                 <a href="#" class="nav-link">
+                                     <i class="far fa-thin fa-envelope nav-icon"></i>
                                      <p>
-                                         Surat Disposisi
+                                         Surat
+                                         <i class="fas fa-angle-left right"></i>
                                      </p>
                                  </a>
+                                 <ul class="nav nav-treeview">
+                                     <li class="nav-item">
+                                         <a href="<?php echo base_url('sekretaris/surat-masuk') ?>" class="nav-link">
+                                             <i class="far fa-thin fa-envelope nav-icon"></i>
+                                             <p>Surat Masuk</p>
+                                         </a>
+                                     </li>
+                                     <li class="nav-item">
+                                         <a href="<?php echo base_url('sekretaris/surat-keluar') ?>" class="nav-link">
+                                             <i class="far fa-duotone fa-envelope nav-icon"></i>
+                                             <p>Surat Keluar</p>
+                                         </a>
+                                     </li>
+                                     <li class="nav-item">
+                                         <a href="<?php echo base_url('sekretaris/disposisi') ?>" class="nav-link">
+                                             <i class="far fa-solid fa-envelope nav-icon"></i>
+                                             <p>Disposisi</p>
+                                         </a>
+                                     </li>
+                                 </ul>
                              </li>
                              <li class="nav-item">
                                  <a href="#" class="nav-link">

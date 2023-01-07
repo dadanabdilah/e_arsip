@@ -37,6 +37,11 @@ $routes->set404Override();
 // route since we don't have to scan directories.
 //$routes->get('/', 'Home::index');
 $routes->get('/admin/dashboard', 'Admin\Dashboard::index');
+
+$routes->get('email/send', 'Email::send');
+$routes->post('email/send', 'Email::send');
+$routes->post('whatsapp/send', 'Whatsapp::send');
+
 $routes->group("admin", ["namespace" => "App\Controllers\Admin"], function ($routes) {
     $routes->resource('dashboard');
     $routes->resource('arsip-primer', ['controller' => 'ArsipPrimer'], ['except' => 'show, new, edit, delete']);
@@ -48,6 +53,13 @@ $routes->group("admin", ["namespace" => "App\Controllers\Admin"], function ($rou
     $routes->resource('disposisi', ['controller' => 'Disposisi']);
     $routes->resource('unit-kerja', ['controller' => 'UnitKerja']);
     $routes->resource('bidang', ['controller' => 'Bidang']);
+
+    $routes->get('pengaturan', 'Pengaturan::index');
+    $routes->post('pengaturan', 'Pengaturan::index');
+    $routes->get('pengaturan/email', 'Pengaturan::email');
+    $routes->post('pengaturan/email', 'Pengaturan::email');
+    $routes->get('pengaturan/wa', 'Pengaturan::wa');
+    $routes->post('pengaturan/wa', 'Pengaturan::wa');
 });
 
 $routes->group("pimpinan", ["namespace" => "App\Controllers\Pimpinan"], function ($routes) {
@@ -55,6 +67,17 @@ $routes->group("pimpinan", ["namespace" => "App\Controllers\Pimpinan"], function
     $routes->resource('disposisi');
 });
 
+$routes->group("bid", ["namespace" => "App\Controllers\bid"], function ($routes) {
+    $routes->resource('dashboard');
+    $routes->resource('disposisi');
+});
+
+$routes->group("sekretaris", ["namespace" => "App\Controllers\Sekretaris"], function ($routes) {
+    $routes->resource('dashboard');
+    $routes->resource('surat-masuk', ['controller' => 'SuratMasuk']);
+    $routes->resource('surat-keluar', ['controller' => 'SuratKeluar']);
+    $routes->resource('disposisi');
+});
 /*
  * --------------------------------------------------------------------
  * Additional Routing

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\Pimpinan;
+namespace App\Controllers\Sekretaris;
 
 use CodeIgniter\RESTful\ResourceController;
 
@@ -16,6 +16,7 @@ class Disposisi extends ResourceController
     {
         $this->Bidang = new BidangModel;
         $this->SMasuk = new SuratMasukModel;
+        $this->SDisposisi = new DisposisiModel;
     }
 
     /**
@@ -31,7 +32,7 @@ class Disposisi extends ResourceController
             'sub_title' => 'Data Disposisi'
         ];
 
-        return view('pimpinan/disposisi/index', $data);
+        return view('sekretaris/disposisi/index', $data);
     }
 
     /**
@@ -58,7 +59,7 @@ class Disposisi extends ResourceController
             'sub_title' => 'Tambah Data Disposisi'
         ];
 
-        return view('pimpinan/disposisi/tambah', $data);
+        return view('sekretaris/disposisi/tambah', $data);
     }
 
     /**
@@ -96,10 +97,10 @@ class Disposisi extends ResourceController
 
         if ($result) {
             session()->setFlashdata('message', 'Tambah Data Disposisi Berhasil');
-            return redirect()->to('pimpinan/disposisi');
+            return redirect()->to('sekretaris/disposisi');
         } else {
             session()->setFlashdata('error', 'Tambah Data Disposisi Tidak Berhasil');
-            return redirect()->to('pimpinan/disposisi');
+            return redirect()->to('sekretaris/disposisi');
         }
     }
 
@@ -113,12 +114,12 @@ class Disposisi extends ResourceController
         $data = [
             'SMasuk' => $this->SMasuk->findAll(),
             'Bidang' => $this->Bidang->findAll(),
-            'Disposisi' => $this->model->where('id_disposisi', $id)->join('surat_masuk', 'surat_masuk.id_sm = disposisi.id_sm')->first(),
+            'Disposisi' => $this->model->where('id_disposisi', $id)->first(),
             'title' => 'Disposisi',
             'sub_title' => 'Edit Data Disposisi'
         ];
 
-        return view('pimpinan/disposisi/edit', $data);
+        return view('sekretaris/disposisi/edit', $data);
     }
 
     /**
@@ -156,11 +157,11 @@ class Disposisi extends ResourceController
         $result = $this->model->save($request);
 
         if ($result) {
-            session()->setFlashdata('message', 'Edit Data Disposisi Berhasil');
-            return redirect()->to('pimpinan/disposisi');
+            session()->setFlashdata('message', 'Tambah Data Disposisi Berhasil');
+            return redirect()->to('sekretaris/disposisi');
         } else {
-            session()->setFlashdata('error', 'Edit Data Disposisi Tidak Berhasil');
-            return redirect()->to('pimpinan/disposisi');
+            session()->setFlashdata('error', 'Tambah Data Disposisi Tidak Berhasil');
+            return redirect()->to('sekretaris/disposisi');
         }
     }
 
@@ -175,10 +176,25 @@ class Disposisi extends ResourceController
 
         if ($result) {
             session()->setFlashdata('message', 'Hapus Data Disposisi Berhasil');
-            return redirect()->to('pimpinan/disposisi');
+            return redirect()->to('sekretaris/disposisi');
         } else {
             session()->setFlashdata('error', 'Hapus Data Disposisi Tidak Berhasil');
-            return redirect()->to('pimpinan/disposisi');
+            return redirect()->to('sekretaris/disposisi');
         }
+    }
+
+    public function preview($id = null)
+    {
+        $data = [
+            'Primer' => $this->APrimer->findAll(),
+            'Tersier' => $this->ATersier->findAll(),
+            'Sekunder' => $this->ASekunder->findAll(),
+            'Kerja' => $this->UKerja->findAll(),
+            'SMasuk' => $this->SMasuk->where('id_sm', $id)->first(),
+            'Disposisi' => $this->SDisposisi->where('id_disposisi', $id)->first(),
+            'title' => 'Disposisi',
+            'sub_title' => 'Edit Data Disposisi'
+        ];
+        return view('sekretaris/disposisi/edit', $data);
     }
 }

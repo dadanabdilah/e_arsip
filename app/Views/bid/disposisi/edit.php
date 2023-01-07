@@ -1,5 +1,5 @@
 <?php echo view('layout/header'); ?>
-<?php echo view('layout/pim-sidebar'); ?>
+<?php echo view('layout/bid-sidebar'); ?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -21,10 +21,10 @@
                     <div class="card">
                         <!-- /.card-header -->
                         <div class="card-header">
-                            <a href="<?= site_url('pimpinan/disposisi') ?>" class="btn btn-primary btn-sm">Kembali</a>
+                            <a href="<?= site_url('bid/disposisi') ?>" class="btn btn-primary btn-sm">Kembali</a>
                         </div>
                         <div class="card-body">
-                            <form method="POST" action="<?php echo base_url('pimpinan/disposisi/' . $Disposisi->id_disposisi) ?>">
+                            <form method="POST" action="<?php echo base_url('bid/disposisi/' . $Disposisi->id_disposisi) ?>">
                                 <input type="hidden" name="_method" value="put">
                                 <div class="card-body">
                                     <div class="form-group">
@@ -46,25 +46,16 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Surat Masuk</label>
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <button type="button" id="show_preview" class="btn btn-primary btn-sm btn-block mt-auto">Lihat File Surat</button>
-                                                <button type="button" id="close_preview" class="btn btn-primary btn-sm btn-block mt-auto" style="display : none">Close Preview File Surat</button>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <select class="form-control" name="id_sm">
-                                                    <option>Pilih</option>
-                                                    <?php foreach ($SMasuk as $key => $value) { ?>
-                                                        <option value="<?= $value->id_sm ?>" <?= $value->id_sm == $Disposisi->id_sm ? 'selected' : '' ?>><?= $value->no_sm ?></option>
-                                                    <?php } ?>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="row" id="file_preview" style="display : none;">
-                                            <div class="col">
-                                                <iframe width="100%" height="400px" src="<?= site_url() . $Disposisi->berkas_url . '/' . $Disposisi->berkas ?>"></iframe>
-                                            </div>
-                                        </div>
+                                        <select class="form-control" name="id_sm">
+                                            <option>Pilih</option>
+                                            <?php foreach ($SMasuk as $key => $value) { ?>
+                                                <option value="<?= $value->id_sm ?>" <?= $value->id_sm == $Disposisi->id_sm ? 'selected' : '' ?>><?= $value->no_sm ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="button" id="show_preview" class="btn btn-primary btn-sm btn-block mt-auto">Lihat File Sebelumnya</button>
+                                        <button type="button" id="close_preview" class="btn btn-primary btn-sm btn-block mt-auto" style="display : none">Close Preview File Sebelumnya</button>
                                     </div>
                                     <div class="form-group">
                                         <label>Disposisi</label>
@@ -107,22 +98,5 @@
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
-
-<?= $this->section('js') ?>
-<script>
-    $(document).ready(function() {
-        $('#show_preview').on('click', function() {
-            $('#file_preview').show()
-            $('#close_preview').show()
-            $('#show_preview').hide()
-        })
-    })
-    $('#close_preview').on('click', function() {
-        $('#show_preview').show()
-        $('#file_preview').hide()
-        $('#close_preview').hide()
-    })
-</script>
-<?= $this->endSection() ?>
 
 <?php echo view('layout/footer'); ?>

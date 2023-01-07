@@ -1,5 +1,5 @@
 <?php echo view('layout/header'); ?>
-<?php echo view('layout/sidebar'); ?>
+<?php echo view('layout/s-sidebar'); ?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -39,7 +39,6 @@
                                             <option value="Penting" <?= $Disposisi->tingkat_keamanan == 'Penting' ? 'selected' : '' ?>>Penting</option>
                                             <option value="Rahasia" <?= $Disposisi->tingkat_keamanan == 'Rahasia' ? 'selected' : '' ?>>Rahasia</option>
                                         </select>
-
                                         <div class=" form-group">
                                             <label>Tanggal Selesai</label>
                                             <input type="date" name="tgl_selesai" value="<?= $Disposisi->tgl_selesai ?>" class="form-control">
@@ -72,7 +71,6 @@
                                             <select class="form-control" name="status">
                                                 <option value="" selected disabled>Pilih</option>
                                                 <option value="diajukan" <?= $Disposisi->status == 'diajukan' ? 'selected' : '' ?>>Diajukan</option>
-                                                <option value="proses" <?= $Disposisi->status == 'proses' ? 'selected' : '' ?>>Proses</option>
                                                 <option value="selesai" <?= $Disposisi->status == 'selesai' ? 'selected' : '' ?>>Selesai</option>
                                             </select>
                                         </div>

@@ -1,5 +1,5 @@
 <?php echo view('layout/header'); ?>
-<?php echo view('layout/sidebar'); ?>
+<?php echo view('layout/s-sidebar'); ?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -21,10 +21,10 @@
                     <div class="card">
                         <!-- /.card-header -->
                         <div class="card-header">
-                            <a href="<?= site_url('admin/surat-masuk') ?>" class="btn btn-primary btn-sm">Kembali</a>
+                            <a href="<?= site_url('sekretaris/surat-masuk') ?>" class="btn btn-primary btn-sm">Kembali</a>
                         </div>
                         <div class="card-body">
-                            <form method="POST" action="<?php echo base_url('admin/surat-masuk/' . $SMasuk->id_sm) ?>" enctype="multipart/form-data">
+                            <form method="POST" action="<?php echo base_url('sekretaris/surat-masuk/' . $SMasuk->id_sm) ?>" enctype="multipart/form-data">
                                 <input type="hidden" name="_method" value="put">
                                 <div class="card-body">
                                     <div class="row">

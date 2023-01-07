@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\Admin;
+namespace App\Controllers\Sekretaris;
 
 use CodeIgniter\RESTful\ResourceController;
 
@@ -34,18 +34,12 @@ class SuratMasuk extends ResourceController
 
     public function index()
     {
-        $keyword = $this->request->getPost('keyword');
-        if (!empty($keyword)) {
-            $cari = $this->SMasuk->like(['perihal' => '%' . $keyword . '%'])->findAll();
-            return view('admin/surat-masuk/index', ['perihal' => $cari]);
-        }
         $data = [
             'SuratMasuk'  => $this->SMasuk->findAll(),
             'title' => 'Data Surat Masuk',
             'sub_title' => 'Data Surat Masuk'
         ];
-
-        return view('admin/surat-masuk/index', $data);
+        return view('sekretaris/surat-masuk/index', $data);
     }
 
     /**
@@ -73,7 +67,7 @@ class SuratMasuk extends ResourceController
             'title' => 'Surat Masuk',
             'sub_title' => 'Tambah Data Surat Masuk'
         ];
-        return view('admin/surat-masuk/tambah', $data);
+        return view('sekretaris/surat-masuk/tambah', $data);
     }
 
     /**
@@ -120,7 +114,7 @@ class SuratMasuk extends ResourceController
             if (!is_dir($filepath)) {
                 if (!mkdir($filepath, 0777, TRUE)) {
                     session()->setFlashdata('message', 'Tambah Data Surat Masuk Tidak Berhasil');
-                    return redirect()->to('admin/surat-masuk');
+                    return redirect()->to('sekretaris/surat-masuk');
                 }
             }
 
@@ -141,18 +135,18 @@ class SuratMasuk extends ResourceController
 
                 if ($result) {
                     session()->setFlashdata('message', 'Tambah Data Surat Masuk Berhasil');
-                    return redirect()->to('admin/surat-masuk');
+                    return redirect()->to('sekretaris/surat-masuk');
                 } else {
                     session()->setFlashdata('error', 'Tambah Data Surat Masuk Tidak Berhasil');
-                    return redirect()->to('admin/surat-masuk');
+                    return redirect()->to('sekretaris/surat-masuk');
                 }
             } else {
                 session()->setFlashdata('error', 'Tambah Data Surat Masuk Tidak Berhasil');
-                return redirect()->to('admin/surat-masuk');
+                return redirect()->to('sekretaris/surat-masuk');
             }
         } else {
             session()->setFlashdata('error', 'Tambah Data Surat Masuk Tidak Berhasil');
-            return redirect()->to('admin/surat-masuk');
+            return redirect()->to('sekretaris/surat-masuk');
         }
     }
 
@@ -172,7 +166,7 @@ class SuratMasuk extends ResourceController
             'title' => 'Surat Masuk',
             'sub_title' => 'Edit Data Surat Masuk'
         ];
-        return view('admin/surat-masuk/edit', $data);
+        return view('sekretaris/surat-masuk/edit', $data);
     }
 
     /**
@@ -225,10 +219,10 @@ class SuratMasuk extends ResourceController
 
             if ($this->model->save($request)) {
                 session()->setFlashdata('message', 'Edit Data Surat Masuk Berhasil');
-                return redirect()->to('admin/surat-masuk');
+                return redirect()->to('sekretaris/surat-masuk');
             } else {
                 session()->setFlashdata('error', 'Edit Data Surat Masuk Tidak Berhasil');
-                return redirect()->to('admin/surat-masuk');
+                return redirect()->to('sekretaris/surat-masuk');
             }
         }
 
@@ -240,7 +234,7 @@ class SuratMasuk extends ResourceController
             // hapus file lama
             if (!unlink($old_filepath)) {
                 session()->setFlashdata('message', 'Edit Data Surat Masuk Tidak Berhasil');
-                return redirect()->to('admin/surat-masuk');
+                return redirect()->to('sekretaris/surat-masuk');
             }
 
             $Tersier = $this->ATersier->select('kode_sekunder, kode_tersier')->where('kode_tersier', $this->request->getPost('kode_tersier'))->first();
@@ -253,7 +247,7 @@ class SuratMasuk extends ResourceController
             if (!is_dir($filepath)) {
                 if (!mkdir($filepath, 0777, TRUE)) {
                     session()->setFlashdata('message', 'Edit Data Surat Masuk Tidak Berhasil');
-                    return redirect()->to('admin/surat-masuk');
+                    return redirect()->to('sekretaris/surat-masuk');
                 }
             }
 
@@ -273,18 +267,18 @@ class SuratMasuk extends ResourceController
 
                 if ($this->model->save($request)) {
                     session()->setFlashdata('message', 'Edit Data Surat Masuk Berhasil');
-                    return redirect()->to('admin/surat-masuk');
+                    return redirect()->to('sekretaris/surat-masuk');
                 } else {
                     session()->setFlashdata('error', 'Edit Data Surat Masuk Tidak Berhasil');
-                    return redirect()->to('admin/surat-masuk');
+                    return redirect()->to('sekretaris/surat-masuk');
                 }
             } else {
                 session()->setFlashdata('error', 'Edit Data Surat Masuk Tidak Berhasil');
-                return redirect()->to('admin/surat-masuk');
+                return redirect()->to('sekretaris/surat-masuk');
             }
         } else {
             session()->setFlashdata('error', 'Edit Data Surat Masuk Tidak Berhasil');
-            return redirect()->to('admin/surat-masuk');
+            return redirect()->to('sekretaris/surat-masuk');
         }
     }
 
@@ -300,15 +294,15 @@ class SuratMasuk extends ResourceController
 
         if (!unlink($path)) {
             session()->setFlashdata('message', 'Hapus Data Surat Masuk Tudak Berhasil');
-            return redirect()->to('admin/surat-masuk');
+            return redirect()->to('sekretaris/surat-masuk');
         }
 
         if ($this->SMasuk->delete($id)) {
             session()->setFlashdata('message', 'Hapus Data Surat Masuk Berhasil');
-            return redirect()->to('admin/surat-masuk');
+            return redirect()->to('sekretaris/surat-masuk');
         } else {
             session()->setFlashdata('error', 'Hapus Data Surat Masuk Tidak Berhasil');
-            return redirect()->to('admin/surat-masuk');
+            return redirect()->to('sekretaris/surat-masuk');
         }
     }
 
@@ -323,6 +317,6 @@ class SuratMasuk extends ResourceController
             'title' => 'Surat Masuk',
             'sub_title' => 'Edit Data Surat Masuk'
         ];
-        return view('admin/surat-masuk/edit', $data);
+        return view('sekretaris/surat-masuk/edit', $data);
     }
 }

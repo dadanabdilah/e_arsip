@@ -1,5 +1,5 @@
 <?php echo view('layout/header'); ?>
-<?php echo view('layout/sidebar'); ?>
+<?php echo view('layout/s-sidebar'); ?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -21,10 +21,10 @@
                     <div class="card">
                         <!-- /.card-header -->
                         <div class="card-header">
-                            <a href="<?= site_url('admin/disposisi') ?>" class="btn btn-primary btn-sm">Kembali</a>
+                            <a href="<?= site_url('sekretaris/disposisi') ?>" class="btn btn-primary btn-sm">Kembali</a>
                         </div>
                         <div class="card-body">
-                            <form method="POST" action="<?php echo base_url('admin/disposisi') ?>">
+                            <form method="POST" action="<?php echo base_url('sekretaris/disposisi') ?>">
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label>Tanggal Terima</label>
@@ -60,7 +60,6 @@
                                         <select class="form-control" name="status">
                                             <option value="" selected disabled>Pilih</option>
                                             <option value="diajukan">Diajukan</option>
-                                            <option value="Proses">Proses</option>
                                             <option value="selesai">Selesai</option>
                                         </select>
                                     </div>

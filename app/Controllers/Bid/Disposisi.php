@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\Pimpinan;
+namespace App\Controllers\Bid;
 
 use CodeIgniter\RESTful\ResourceController;
 
@@ -31,7 +31,7 @@ class Disposisi extends ResourceController
             'sub_title' => 'Data Disposisi'
         ];
 
-        return view('pimpinan/disposisi/index', $data);
+        return view('bid/disposisi/index', $data);
     }
 
     /**
@@ -58,7 +58,7 @@ class Disposisi extends ResourceController
             'sub_title' => 'Tambah Data Disposisi'
         ];
 
-        return view('pimpinan/disposisi/tambah', $data);
+        return view('bid/disposisi/tambah', $data);
     }
 
     /**
@@ -113,12 +113,12 @@ class Disposisi extends ResourceController
         $data = [
             'SMasuk' => $this->SMasuk->findAll(),
             'Bidang' => $this->Bidang->findAll(),
-            'Disposisi' => $this->model->where('id_disposisi', $id)->join('surat_masuk', 'surat_masuk.id_sm = disposisi.id_sm')->first(),
+            'Disposisi' => $this->model->where('id_disposisi', $id)->first(),
             'title' => 'Disposisi',
             'sub_title' => 'Edit Data Disposisi'
         ];
 
-        return view('pimpinan/disposisi/edit', $data);
+        return view('bid/disposisi/edit', $data);
     }
 
     /**
@@ -157,10 +157,10 @@ class Disposisi extends ResourceController
 
         if ($result) {
             session()->setFlashdata('message', 'Edit Data Disposisi Berhasil');
-            return redirect()->to('pimpinan/disposisi');
+            return redirect()->to('bid/disposisi');
         } else {
             session()->setFlashdata('error', 'Edit Data Disposisi Tidak Berhasil');
-            return redirect()->to('pimpinan/disposisi');
+            return redirect()->to('bid/disposisi');
         }
     }
 
@@ -175,10 +175,10 @@ class Disposisi extends ResourceController
 
         if ($result) {
             session()->setFlashdata('message', 'Hapus Data Disposisi Berhasil');
-            return redirect()->to('pimpinan/disposisi');
+            return redirect()->to('bid/disposisi');
         } else {
             session()->setFlashdata('error', 'Hapus Data Disposisi Tidak Berhasil');
-            return redirect()->to('pimpinan/disposisi');
+            return redirect()->to('bid/disposisi');
         }
     }
 }

@@ -6,7 +6,7 @@
                              <img src="<?php echo base_url('template/img/user2-160x160.jpg') ?>" class="img-circle elevation-2" alt="User Image">
                          </div>
                          <div class="info">
-                             <a href="#" class="d-block">Pimpinan</a>
+                             <a href="#" class="d-block">Bidang</a>
                          </div>
                      </div>
                      <!-- Sidebar Menu -->
@@ -15,7 +15,7 @@
                              <!-- Add icons to the links using the .nav-icon class
                             with font-awesome or any other icon font library -->
                              <li class="nav-item menu-open">
-                                 <a href="<?php echo base_url('pimpinan/dashboard') ?>" class="nav-link active">
+                                 <a href="<?php echo base_url('bid/dashboard') ?>" class="nav-link active">
                                      <i class="nav-icon fas fa-tachometer-alt"></i>
                                      <p>
                                          Dashboard
@@ -23,10 +23,18 @@
                                  </a>
                              </li>
                              <li class="nav-item">
-                                 <a href="<?php echo base_url('pimpinan/disposisi') ?>" class="nav-link">
+                                 <a href="<?php echo base_url('bid/disposisi') ?>" class="nav-link">
                                      <i class="far fa-solid fa-envelope nav-icon"></i>
                                      <p>
                                          Surat Disposisi
+                                     </p>
+                                 </a>
+                             </li>
+                             <li class="nav-item">
+                                 <a href="<?php echo base_url('bid/disposisi') ?>" class="nav-link">
+                                     <i class="far fa-solid fa-envelope nav-icon"></i>
+                                     <p>
+                                         Pengajuan Surat
                                      </p>
                                  </a>
                              </li>

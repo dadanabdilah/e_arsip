@@ -16,6 +16,7 @@ class Disposisi extends ResourceController
     {
         $this->Bidang = new BidangModel;
         $this->SMasuk = new SuratMasukModel;
+        $this->SDisposisi = new DisposisiModel;
     }
 
     /**
@@ -180,5 +181,20 @@ class Disposisi extends ResourceController
             session()->setFlashdata('error', 'Hapus Data Disposisi Tidak Berhasil');
             return redirect()->to('admin/disposisi');
         }
+    }
+
+    public function preview($id = null)
+    {
+        $data = [
+            'Primer' => $this->APrimer->findAll(),
+            'Tersier' => $this->ATersier->findAll(),
+            'Sekunder' => $this->ASekunder->findAll(),
+            'Kerja' => $this->UKerja->findAll(),
+            'SMasuk' => $this->SMasuk->where('id_sm', $id)->first(),
+            'Disposisi' => $this->SDisposisi->where('id_disposisi', $id)->first(),
+            'title' => 'Disposisi',
+            'sub_title' => 'Edit Data Disposisi'
+        ];
+        return view('admin/disposisi/edit', $data);
     }
 }
