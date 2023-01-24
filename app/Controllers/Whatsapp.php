@@ -12,7 +12,7 @@ class Whatsapp extends BaseController
 		$email = \Config\Services::email();
 
 		$builder = $db->table('pengaturan');
-		$query = $builder->select('no_wa, token, url_kirim_pesan')->get();
+		$query   = $builder->select('no_wa, token, url_kirim_pesan')->get();
 		$set_data  = $query->getRowObject();
 
         if(!$this->validate([
@@ -24,39 +24,46 @@ class Whatsapp extends BaseController
             return redirect()->back()->withInput();
         }
 
-
-
+        $attachement = base_url() . '/' . $this->request->getPost('path');
         $to_number = $this->request->getPost('no_tujuan');
         $message   = $this->request->getPost('pesan');
+        $message   = $message . "\r\n\r\nDownload file surat di link berikut\r\n\r\n" . $attachement;
 
-        $attachement = base_url() . '/' . $this->request->getPost('path');
+        $data = [
+                    'target' => $to_number,
+                    'message' => $message, 
+                    'countryCode' => '62', //optiona
+                ];
 
-        $ch = curl_init();
+        $curl = curl_init();
 
-        curl_setopt($ch, CURLOPT_URL,$set_data->url_kirim_pesan);
-        curl_setopt($ch, CURLOPT_ENCODING, "");
-        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-        curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-        // curl_setopt($ch, CURLOPT_POSTFIELDS,"sender=" . $set_data->no_wa . "&number=" . $to_number . "&caption=" . $message . "&file=" . $attachement);
-
-        // In real life you should use something like:
-        curl_setopt($ch, CURLOPT_POSTFIELDS, 
-                 http_build_query(array('sender' => $set_data->no_wa, 'number' => $to_number, 'caption' => $message, 'file' =>  $attachement)));
-
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-            "cache-control: no-cache",
-            "content-type: application/x-www-form-urlencoded"
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => $set_data->url_kirim_pesan,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => $data,
+            CURLOPT_HTTPHEADER => array(
+                'Authorization: ' . $set_data->token
+            ),
         ));
-        
-        // Receive server response ...
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                
+        $response = curl_exec($curl);
+        curl_close($curl);
+        $response = json_decode($response);
 
-        $server_output = curl_exec($ch);
+        if(isset($response)){
+            if($response->status == true){
+                session()->setFlashdata('message', 'Whatsapp berhasil dikirim');
+            } else {
+                session()->setFlashdata('error', $response->detail);
+            }
+        }
 
-        curl_close($ch);
-
-        // Further processing ...
-        dd( $server_output);
+        return redirect()->back();
     }
 }
