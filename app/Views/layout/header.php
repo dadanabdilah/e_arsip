@@ -27,7 +27,10 @@
     <!-- summernote -->
     <link rel="stylesheet" href="<?php echo base_url('template/plugins/summernote/summernote-bs4.min.css') ?>">
     <!-- summernote -->
-    <link rel="stylesheet" href="<?php echo base_url('template/plugins/datatables/jquery.dataTables.min.css') ?>">
+    <link rel="stylesheet" href="<?php echo base_url('template/plugins/summernote/summernote-bs4.min.css') ?>">
+    <link rel="stylesheet" href="<?php echo base_url('template/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') ?>">
+    <link rel="stylesheet" href="<?php echo base_url('template/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') ?>">
+    <link rel="stylesheet" href="<?php echo base_url('template/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') ?>">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">

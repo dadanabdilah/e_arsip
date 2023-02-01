@@ -12,6 +12,8 @@ use Psr\Log\LoggerInterface;
 
 use App\Models\ArsipTersierModel;
 use App\Models\SuratMasukModel;
+use App\Models\SuratkeluarModel;
+use App\Models\DisposisiModel;
 
 /**
  * Class BaseController
@@ -55,5 +57,7 @@ abstract class BaseController extends Controller
 
         $this->ATersier = new ArsipTersierModel();
         $this->SMasuk = new SuratMasukModel();
+        $this->SKeluar = new SuratKeluarModel();
+        $this->SDisposisi = new DisposisiModel();
     }
 }

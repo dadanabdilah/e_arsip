@@ -114,7 +114,7 @@ class Disposisi extends ResourceController
         $data = [
             'SMasuk' => $this->SMasuk->findAll(),
             'Bidang' => $this->Bidang->findAll(),
-            'Disposisi' => $this->model->where('id_disposisi', $id)->first(),
+            'Disposisi' => $this->model->withSuratMasuk()->withBidang()->where('id_disposisi', $id)->first(),
             'title' => 'Disposisi',
             'sub_title' => 'Edit Data Disposisi'
         ];

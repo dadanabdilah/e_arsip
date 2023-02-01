@@ -21,14 +21,7 @@
 
       <div class="container-fluid mb-4">
          <div class="row">
-            <div class="col-6">
-               <form action="" method="post">
-                  <div class="input-group mb-3">
-                     <input type="text" class="form-control" value="" placeholder="Cari berdasarkan unit kerja atau perihal atau tanggal surat " name="keyword" aria-label="Cari berdasarkan unit kerja atau perihal atau tanggal surat" aria-describedby="button-addon2">
-                     <button class="btn btn-outline-secondary" type="submit" name="submit" id="button-addon2">Cari</button>
-                  </div>
-               </form>
-            </div>
+
             <div class="col">
                <div class="card">
                   <!-- /.card-header -->
@@ -52,7 +45,7 @@
                      <a class=" btn btn-sm btn-success mb-3" href="<?php echo base_url('/admin/surat-masuk/new') ?>"><i class="fas fa-plus"></i>Tambah Data</a>
 
                      <div class="table-responsive">
-                        <table class="table table-bordered">
+                        <table class="table table-bordered" id="Data_Table">
                            <thead>
                               <tr>
                                  <th style="width: 10px">No</th>

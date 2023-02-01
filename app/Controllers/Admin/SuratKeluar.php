@@ -107,9 +107,9 @@ class SuratKeluar extends ResourceController
             $Sekunder = $this->ASekunder->select('kode_primer, kode_sekunder')->where('kode_sekunder', $Tersier->kode_sekunder)->first();
             $Primer   = $this->APrimer->select('kode_primer')->where('kode_primer', $Sekunder->kode_primer)->first();
 
-            $filepath = ROOTPATH . 'public/assets/surat_keluar/' . $Primer->kode_primer . '/' . $Sekunder->kode_sekunder . '/' . $Tersier->kode_tersier;
-            $filedir = ROOTPATH . 'public/assets/surat_keluar/' . $Primer->kode_primer . '/' . $Sekunder->kode_sekunder . '/' . $Tersier->kode_tersier . '/' . $berkas->getName();
-            $fileurl = 'assets/surat_keluar/' . $Primer->kode_primer . '/' . $Sekunder->kode_sekunder . '/' . $Tersier->kode_tersier;
+            $filepath = ROOTPATH . 'public/assets/surat/' . $Primer->kode_primer . '/' . $Sekunder->kode_sekunder . '/' . $Tersier->kode_tersier;
+            $filedir = ROOTPATH . 'public/assets/surat/' . $Primer->kode_primer . '/' . $Sekunder->kode_sekunder . '/' . $Tersier->kode_tersier . '/' . $berkas->getName();
+            $fileurl = 'assets/surat/' . $Primer->kode_primer . '/' . $Sekunder->kode_sekunder . '/' . $Tersier->kode_tersier;
 
             if (!is_dir($filepath)) {
                 if (!mkdir($filepath, 0777, TRUE)) {
@@ -238,8 +238,8 @@ class SuratKeluar extends ResourceController
             $Sekunder = $this->ASekunder->select('kode_primer, kode_sekunder')->where('kode_sekunder', $Tersier->kode_sekunder)->first();
             $Primer   = $this->APrimer->select('kode_primer')->where('kode_primer', $Sekunder->kode_primer)->first();
 
-            $filepath = ROOTPATH . 'public/assets/surat_keluar/' . $Primer->kode_primer . '/' . $Sekunder->kode_sekunder . '/' . $Tersier->kode_tersier;
-            $fileurl = 'assets/surat_keluar/' . $Primer->kode_primer . '/' . $Sekunder->kode_sekunder . '/' . $Tersier->kode_tersier;
+            $filepath = ROOTPATH . 'public/assets/surat/' . $Primer->kode_primer . '/' . $Sekunder->kode_sekunder . '/' . $Tersier->kode_tersier;
+            $fileurl = 'assets/surat/' . $Primer->kode_primer . '/' . $Sekunder->kode_sekunder . '/' . $Tersier->kode_tersier;
 
             if (!is_dir($filepath)) {
                 if (!mkdir($filepath, 0777, TRUE)) {
