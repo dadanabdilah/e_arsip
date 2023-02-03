@@ -40,6 +40,11 @@ class DisposisiModel extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
+    public function withUnit()
+    {
+        return $this->join('unit_kerja', 'surat_masuk.id_unit = unit_kerja.id_unit');
+    }
+
     public function withSuratMasuk()
     {
         return $this->join('surat_masuk', 'surat_masuk.id_sm = disposisi.id_sm');

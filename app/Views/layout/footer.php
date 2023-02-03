@@ -55,14 +55,21 @@
         <script src="<?php echo base_url('template/plugins/datatables-buttons/js/buttons.print.min.js') ?>"></script>
         <script src="<?php echo base_url('template/plugins/datatables-buttons/js/buttons.colVis.min.js') ?>"></script>
         <script>
-            $(document).ready(function() {
-                $('.table').DataTable({
-                    "responsive": true,
-                    "lengthChange": false,
-                    "autoWidth": false,
-                    "buttons": ["copy", "csv", "excel", "pdf", "print"]
-                }).buttons().container().appendTo('.dataTables_wrapper .col-md-6:eq(0)');
-            });
+            <?php $uri = service('uri');?>
+            <?php if($uri->getSegment(2) == 'laporan' ) { ?>
+                $(document).ready(function() {
+                    $('.table').DataTable();
+                });
+            <?php } else { ?>
+                $(document).ready(function() {
+                    $('.table').DataTable({
+                        "responsive": true,
+                        "lengthChange": false,
+                        "autoWidth": false,
+                        "buttons": ["copy", "csv", "excel", "pdf", "print"]
+                    }).buttons().container().appendTo('.dataTables_wrapper .col-md-6:eq(0)');
+                });
+            <?php } ?>
         </script>
         <?= $this->renderSection('js') ?>
         </body>

@@ -99,19 +99,19 @@
                                  </a>
                                  <ul class="nav nav-treeview">
                                      <li class="nav-item">
-                                         <a href="<?php echo base_url('Laporansm') ?>" class="nav-link">
+                                         <a href="<?php echo base_url('admin/laporan/sm') ?>" class="nav-link">
                                              <i class="fas fa-print nav-icon"></i>
                                              <p>laporan Surat Masuk</p>
                                          </a>
                                      </li>
                                      <li class="nav-item">
-                                         <a href="<?php echo base_url('Laporansk') ?>" class="nav-link">
+                                         <a href="<?php echo base_url('admin/laporan/sk') ?>" class="nav-link">
                                              <i class="fas fa-print nav-icon"></i>
                                              <p>Laporan Surat Keluar</p>
                                          </a>
                                      </li>
                                      <li class="nav-item">
-                                         <a href="<?php echo base_url('Laporandis') ?>" class="nav-link">
+                                         <a href="<?php echo base_url('admin/laporan/disposisi') ?>" class="nav-link">
                                              <i class="fas fa-print nav-icon"></i>
                                              <p>Laporan Disposisi</p>
                                          </a>

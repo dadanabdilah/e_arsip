@@ -50,7 +50,10 @@ $routes->group("admin", ["namespace" => "App\Controllers\Admin"], function ($rou
     $routes->resource('unit-kerja', ['controller' => 'UnitKerja']);
     $routes->resource('surat-masuk', ['controller' => 'SuratMasuk']);
     $routes->resource('surat-keluar', ['controller' => 'SuratKeluar']);
+
+    $routes->get('disposisi/(:num)', 'Disposisi::index/$1');
     $routes->resource('disposisi', ['controller' => 'Disposisi']);
+
     $routes->resource('unit-kerja', ['controller' => 'UnitKerja']);
     $routes->resource('bidang', ['controller' => 'Bidang']);
 
@@ -60,6 +63,15 @@ $routes->group("admin", ["namespace" => "App\Controllers\Admin"], function ($rou
     $routes->post('pengaturan/email', 'Pengaturan::email');
     $routes->get('pengaturan/wa', 'Pengaturan::wa');
     $routes->post('pengaturan/wa', 'Pengaturan::wa');
+
+    $routes->get('laporan/sm', 'Laporan::sm');
+    $routes->post('laporan/sm', 'Laporan::sm');
+
+    $routes->get('laporan/sk', 'Laporan::sk');
+    $routes->post('laporan/sk', 'Laporan::sk');
+
+    $routes->get('laporan/disposisi', 'Laporan::disposisi');
+    $routes->post('laporan/disposisi', 'Laporan::disposisi');
 });
 
 $routes->group("pimpinan", ["namespace" => "App\Controllers\Pimpinan"], function ($routes) {

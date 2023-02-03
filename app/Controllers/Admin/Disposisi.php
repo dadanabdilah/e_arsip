@@ -4,6 +4,9 @@ namespace App\Controllers\Admin;
 
 use CodeIgniter\RESTful\ResourceController;
 
+use Dompdf\Dompdf;
+use Dompdf\Options;
+
 use App\Models\DisposisiModel;
 use App\Models\BidangModel;
 use App\Models\SuratMasukModel;
@@ -24,15 +27,34 @@ class Disposisi extends ResourceController
      *
      * @return mixed
      */
-    public function index()
+    public function index($id = null)
     {
-        $data = [
-            'Disposisi' => $this->model->withSuratMasuk()->withBidang()->findAll(),
-            'title' => 'Disposisi',
-            'sub_title' => 'Data Disposisi'
-        ];
+        if($id == null){
+            $data = [
+                'Disposisi' => $this->model->withSuratMasuk()->withBidang()->findAll(),
+                'title' => 'Disposisi',
+                'sub_title' => 'Data Disposisi'
+            ];
 
-        return view('admin/disposisi/index', $data);
+            return view('admin/disposisi/index', $data);
+        } else {
+            $data = [
+                'Disposisi'  => $this->SDisposisi->withSuratMasuk()->withUnit()->withBidang()->where('id_disposisi', $id)->first(),
+                'title' => 'Lembar Disposisi',
+                'sub_title' => 'Lembar Disposisi'
+            ];
+    
+            $html = view('admin/disposisi/lembar-disposisi-pdf', $data);
+    
+            $options = new Options();
+            $options->set('isRemoteEnabled', true);
+            $dompdf = new Dompdf($options);
+            $dompdf->loadHtml($html);
+            $dompdf->setPaper("A4", "potrait");
+            $dompdf->render();
+    
+            $dompdf->stream("Coba.pdf", array("Attachment" => 0));
+        } 
     }
 
     /**
@@ -50,7 +72,7 @@ class Disposisi extends ResourceController
      *
      * @return mixed
      */
-    public function new()
+    public function new($id = null)
     {
         $data = [
             'SMasuk' => $this->SMasuk->findAll(),
@@ -60,6 +82,7 @@ class Disposisi extends ResourceController
         ];
 
         return view('admin/disposisi/tambah', $data);
+              
     }
 
     /**

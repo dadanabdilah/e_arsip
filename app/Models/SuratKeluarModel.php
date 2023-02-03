@@ -39,4 +39,9 @@ class SuratKeluarModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    public function withUnit()
+    {
+        return $this->join('unit_kerja', 'unit_kerja.id_unit = surat_keluar.id_unit');
+    }
 }

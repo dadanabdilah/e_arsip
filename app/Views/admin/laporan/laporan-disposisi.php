@@ -22,10 +22,6 @@
             <div class="row">
                 <div class="col">
                     <div class="card">
-                        <!-- /.card-header -->
-                        <div class="card-header">
-                            <a class=" btn btn-sm btn-success" href="<?php echo base_url('/admin/disposisi/new') ?>"><i class="fas fa-plus"></i>Tambah Data</a>
-                        </div>
                         <div class="card-body mb-4">
                             <?php if (session('error') !== null) {  ?>
                                 <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -44,6 +40,23 @@
                                 </div>
                             <?php }  ?>
 
+                            <div class="row">
+                                <div class="col-md-4">
+                                <form method="POST" action="">
+                                    <div class="input-group mb-3">
+                                        <input type="date" class="form-control form-control-sm" value="<?= isset($_POST['tanggal_awal']) != null ? $_POST['tanggal_awal'] : '' ; ?>" name="tanggal_awal" aria-describedby="button-addon2" required>
+                                        <input type="date" class="form-control form-control-sm" value="<?= isset($_POST['tanggal_akhir']) != null ? $_POST['tanggal_awal'] : '' ; ?>" name="tanggal_akhir" aria-describedby="button-addon2" required>
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary btn-sm" type="submit" id="button-addon2" name="filter" value="filter">Filter</button>
+                                        </div>
+                                    </div>
+                                </form>
+                                </div>
+                                <div class="col-md-8">
+                                <a class="btn btn-sm btn-info float-right mb-3" href="#" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-download"></i>Cetak PDF</a>
+                                </div>
+                            </div>
+
                             <table class="table table-bordered tabel-resposive">
                                 <thead>
                                     <tr>
@@ -51,11 +64,9 @@
                                         <th class="text-center">Tanggal Terima</th>
                                         <th>Tingkat Keamanan</th>
                                         <th>Tanggal Selesai</th>
-                                        <th>Surat Masuk</th>
-                                        <th>Bidang</th>
+                                        <th>Nomor Surat</th>
+                                        <th>Diteruskan Kepada</th>
                                         <th>Disposisi</th>
-                                        <th>Status</th>
-                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -69,17 +80,7 @@
                                             <td><?= $value->no_sm ?></td>
                                             <td><?= $value->nama_bidang ?></td>
                                             <td><?= $value->disposisi ?></td>
-                                            <td><?= $value->status == 'menunggu_diajukan' ? '<span class="badge badge-warning">Menunggu Diajukan</span>' : ($value->status == 'diajukan' ? '<span class="badge badge-warning">Diajukan</span>' : ($value->status == 'proses' ? '<span class="badge badge-warning">Proses</span>' : ($value->status == 'proses' ? '<span class="badge badge-warning">Proses</span>' : '<span class="badge badge-success">Selesai</span>'))) ?></td>
-                                            <td>
-                                                <div class="d-flex">
-                                                    <a target="_blank" class=" btn btn-sm btn-primary mr-1" href="<?php echo base_url('admin/disposisi/' .  $value->id_disposisi) ?>"><i class="fas fa-download"></i></a>
-                                                    <a class=" btn btn-sm btn-primary mr-1" href="<?php echo base_url('admin/disposisi/' .  $value->id_disposisi . '/edit') ?>"><i class="fas fa-edit"></i></a>
-                                                    <form id="delete-form" class="form-inline" action="<?= base_url('admin/disposisi/' .  $value->id_disposisi) ?>" method="POST">
-                                                        <input type="hidden" name="_method" value="DELETE" />
-                                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Yakin Hapus')"><i class="fas fa-trash"></i></button>
-                                                    </form>
-                                                </div>
-                                            </td>
+
                                         </tr>
                                     <?php } ?>
                                 </tbody>
@@ -95,5 +96,33 @@
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Export PDF</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form method="POST" action="">
+         <div class="modal-body">
+            <label>Masukan Tanggal</label>
+            <div class="input-group mb-3">
+               <input type="date" class="form-control" value="<?= isset($_POST['tanggal_awal']) != null ? $_POST['tanggal_awal'] : '' ; ?>" name="tanggal_awal"  required>
+               <input type="date" class="form-control" value="<?= isset($_POST['tanggal_akhir']) != null ? $_POST['tanggal_akhir'] : '' ; ?>" name="tanggal_akhir"  required>
+            </div>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" name="pdf" value="pdf" class="btn btn-primary">Cetak PDF</button>
+         </div>
+      </form>
+    </div>
+  </div>
+</div>
 
 <?php echo view('layout/footer'); ?>

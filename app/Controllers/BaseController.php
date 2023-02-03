@@ -12,7 +12,7 @@ use Psr\Log\LoggerInterface;
 
 use App\Models\ArsipTersierModel;
 use App\Models\SuratMasukModel;
-use App\Models\SuratkeluarModel;
+use App\Models\SuratKeluarModel;
 use App\Models\DisposisiModel;
 
 /**
